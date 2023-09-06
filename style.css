@@ -8,6 +8,7 @@
     text-decoration: none;
 }  
 button{
+    /* background-color: #ffffff00; */
     border: 0;
     outline: none;
     &:hover{
@@ -26,8 +27,8 @@ button{
     --app-size:200px;
     --app-hdr-h:30px;
     --app-hdr-bgc:#f7f4f5;
-
     --app-hdr-c:#5b5a5a;
+
     --app-tool-size: 12px;
     --app-tool-bodr-r: 50px;
     --app-h: calc(var(--app-size) + var(--app-hdr-h));
@@ -66,6 +67,7 @@ main{
     height: 100vh;
     position: relative;
     background-color: #f1f1f7;
+    overflow: hidden;
 }
 .app, .box{
     position: absolute;
@@ -79,6 +81,7 @@ main{
     overflow: hidden;
     color: var(--df-c);
     box-shadow: var(--app-box-shadow-1);
+    transition: transform 0.2s;
     > .header{
         height: var(--app-hdr-h);
         width: 100%;
@@ -106,8 +109,9 @@ main{
                 font-size: .9em;
             }
         }
-        .l{
-            i{
+        .r{
+            .more{
+                background-color: var(--app-hdr-bgc);
                 color: var(--app-hdr-c);
             }
         }

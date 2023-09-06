@@ -28,65 +28,82 @@
     </main>
 
     <script>
-        let isDragging = false;
-        let draggingBox = null;
-        let mouseDownTime = 0;
-      
-        document.querySelector('.header').addEventListener('mousedown', (e) => {
-          if (isDragging) return;
-      
-          mouseDownTime = new Date().getTime();
-      
-          setTimeout(() => {
-            const currentTime = new Date().getTime();
-            if (isDragging || (currentTime - mouseDownTime < 1000)) { // 1초로 변경
-              return;
-            }
-      
-            draggingBox = document.getElementById('012789473098');
-            const offsetX = e.clientX - draggingBox.getBoundingClientRect().left;
-            const offsetY = e.clientY - draggingBox.getBoundingClientRect().top;
-      
-            document.body.style.cursor = 'grabbing';
-      
-            // 박스를 1.2배 스케일로 커지도록 스타일을 설정
-            draggingBox.style.transform = 'scale(1.05)';
-            draggingBox.style.transition = 'transform 0.2s';
-      
-            document.addEventListener('mousemove', moveHandler);
-      
-            document.addEventListener('mouseup', () => {
-              if (draggingBox) {
-                document.body.style.cursor = 'auto';
-      
-                // 드래그 종료 후 원래 크기로 돌아가도록 스타일 제거
-                draggingBox.style.transform = 'scale(1)';
-                draggingBox.style.transition = '';
-      
-                document.removeEventListener('mousemove', moveHandler);
-                draggingBox = null;
-                isDragging = false; // 드래그 종료 상태로 변경
-              }
-            });
-      
-            function moveHandler(e) {
-              const x = e.clientX - offsetX;
-              const y = e.clientY - offsetY;
-      
-              draggingBox.style.left = `${x}px`;
-              draggingBox.style.top = `${y}px`;
-            }
-      
-            isDragging = true;
-          }, 1000); // 1초로 변경
-        });
-      </script>
-      
-      
-      
-      
-      
+    let isDragging = false;
+    let draggingBox = null;
+    let touchStartTime = 0;
+    let offsetX, offsetY;
+    let maxXPercent, maxYPercent;
     
+    const header = document.querySelector('.header');
+    
+    header.addEventListener('mousedown', handleStart);
+    header.addEventListener('touchstart', handleStart);
+    
+    function handleStart(e) {
+        if (isDragging) return;
+    
+        touchStartTime = new Date().getTime();
+        const touch = e.type === 'touchstart' ? e.touches[0] : e;
+    
+        setTimeout(() => {
+        const currentTime = new Date().getTime();
+        if (isDragging || (currentTime - touchStartTime < 1000)) {
+            return;
+        }
+    
+        draggingBox = document.getElementById('012789473098');
+        offsetX = touch.clientX - draggingBox.getBoundingClientRect().left;
+        offsetY = touch.clientY - draggingBox.getBoundingClientRect().top;
+    
+        document.body.style.cursor = 'grabbing';
+    
+        const startXPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
+        const startYPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
+    
+        draggingBox.style.left = `${startXPercent}%`;
+        draggingBox.style.top = `${startYPercent}%`;
+    
+        maxXPercent = 100 - (draggingBox.offsetWidth / window.innerWidth * 100);
+        maxYPercent = 100 - (draggingBox.offsetHeight / window.innerHeight * 100);
+    
+        document.addEventListener('mousemove', moveHandler);
+        document.addEventListener('touchmove', moveHandler);
+    
+        document.addEventListener('mouseup', () => {
+            endDrag();
+        });
+        document.addEventListener('touchend', () => {
+            endDrag();
+        });
+    
+        function moveHandler(e) {
+            const touch = e.type === 'touchmove' ? e.touches[0] : e;
+            let xPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
+            let yPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
+    
+            xPercent = Math.min(maxXPercent, Math.max(0, xPercent));
+            yPercent = Math.min(maxYPercent, Math.max(0, yPercent));
+    
+            draggingBox.style.left = `${xPercent}%`;
+            draggingBox.style.top = `${yPercent}%`;
+        }
+    
+        function endDrag() {
+            if (draggingBox) {
+            document.body.style.cursor = 'auto';
+    
+            document.removeEventListener('mousemove', moveHandler);
+            document.removeEventListener('touchmove', moveHandler);
+            draggingBox = null;
+            isDragging = false;
+            }
+        }
+    
+        isDragging = true;
+        }, 1000);
+    }
+    </script>
+      
     
     
     <script src="https://kit.fontawesome.com/e4704dcbbd.js" crossorigin="anonymous"></script>
