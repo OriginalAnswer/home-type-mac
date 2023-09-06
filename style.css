@@ -34,6 +34,9 @@ button{
     /* --app-tool-shadow-inset: inset ; */
     --app-bodr-r:12px;
     --app-bodr:1px solid rgba(217, 217, 217, 0.781);
+
+    --app-box-shadow-1: 0 5px 10px 0 rgba(203, 203, 203, 0.283);
+    --app-box-shadow-inset-1: 5px 3px 10px -2px rgba(240, 240, 240, 0.796) inset;
 }
 @media (prefers-color-scheme: dark) {
     :root{
@@ -75,6 +78,7 @@ main{
     background-color: var(--app-bgc);
     overflow: hidden;
     color: var(--df-c);
+    box-shadow: var(--app-box-shadow-1), var(--app-box-shadow-inset-1);
     > .header{
         height: var(--app-hdr-h);
         width: 100%;
