@@ -8,15 +8,15 @@
 </head>
 <body>
     <main>
-        <div class="app box">
-            <div class="header">
+        <div class="app box" id="012789473098" data-group="012789473098">
+            <div class="header" id="hi">
                 <div class="l">
                     <button class="tool x"></button>
                     <button class="tool m"></button>
                     <button class="tool f"></button>
                 </div>
                 <div class="c">
-                    <span class="app-title">app</span>
+                    <span class="app-title">app.title</span>
                 </div>
                 <div class="r">
                     <button class="more">
@@ -27,6 +27,68 @@
         </div>
     </main>
 
+    <script>
+        let isDragging = false;
+        let draggingBox = null;
+        let mouseDownTime = 0;
+      
+        document.querySelector('.header').addEventListener('mousedown', (e) => {
+          if (isDragging) return;
+      
+          mouseDownTime = new Date().getTime();
+      
+          setTimeout(() => {
+            const currentTime = new Date().getTime();
+            if (isDragging || (currentTime - mouseDownTime < 1000)) { // 1초로 변경
+              return;
+            }
+      
+            draggingBox = document.getElementById('012789473098');
+            const offsetX = e.clientX - draggingBox.getBoundingClientRect().left;
+            const offsetY = e.clientY - draggingBox.getBoundingClientRect().top;
+      
+            document.body.style.cursor = 'grabbing';
+      
+            // 박스를 1.2배 스케일로 커지도록 스타일을 설정
+            draggingBox.style.transform = 'scale(1.05)';
+            draggingBox.style.transition = 'transform 0.2s';
+      
+            document.addEventListener('mousemove', moveHandler);
+      
+            document.addEventListener('mouseup', () => {
+              if (draggingBox) {
+                document.body.style.cursor = 'auto';
+      
+                // 드래그 종료 후 원래 크기로 돌아가도록 스타일 제거
+                draggingBox.style.transform = 'scale(1)';
+                draggingBox.style.transition = '';
+      
+                document.removeEventListener('mousemove', moveHandler);
+                draggingBox = null;
+                isDragging = false; // 드래그 종료 상태로 변경
+              }
+            });
+      
+            function moveHandler(e) {
+              const x = e.clientX - offsetX;
+              const y = e.clientY - offsetY;
+      
+              draggingBox.style.left = `${x}px`;
+              draggingBox.style.top = `${y}px`;
+            }
+      
+            isDragging = true;
+          }, 1000); // 1초로 변경
+        });
+      </script>
+      
+      
+      
+      
+      
+    
+    
+    
     <script src="https://kit.fontawesome.com/e4704dcbbd.js" crossorigin="anonymous"></script>
 </body>
 </html>

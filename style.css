@@ -67,7 +67,7 @@ main{
     position: relative;
     background-color: #f1f1f7;
 }
-.app{
+.app, .box{
     position: absolute;
     top: 0;
     left: 0;
@@ -78,7 +78,7 @@ main{
     background-color: var(--app-bgc);
     overflow: hidden;
     color: var(--df-c);
-    box-shadow: var(--app-box-shadow-1), var(--app-box-shadow-inset-1);
+    box-shadow: var(--app-box-shadow-1);
     > .header{
         height: var(--app-hdr-h);
         width: 100%;
