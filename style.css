@@ -1,0 +1,79 @@
+/* 디폴트 */
+* {
+    box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}  
+button{
+    border: 0;
+    outline: none;
+    &:hover{
+    cursor: pointer;
+    }
+}
+/* ---- */
+/* 변수--------------------------------------------------------------- */
+:root{
+    --df-c:#000;
+    --df-bodr: 1px #000 solid; /* var(--df-bodr) */
+
+    --app-hdr-h:30px;
+    --app-tool-size: 10px;
+    --app-tool-bodr-r: 50px;
+    --app-size:200px;
+    --app-h: calc(var(--app-size) + var(--app-hdr-h));
+    --app-bodr-r:12px;
+}
+/* html, body */
+html{
+    &::-webkit-scrollbar{
+        display: none;
+      }
+    width: 100%;
+    height: 100%;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+}
+/* 앱, 박스--------------------------------------------------------------- */
+main{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background-color:aquamarine;
+}
+.app{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--app-size);
+    height: var(--app-h);
+    border: var(--df-bodr);
+    background-color: #fffffff5;
+    border-radius: var(--app-bodr-r);
+    > .header{
+        border: var(--df-bodr);
+        height: var(--app-hdr-h);
+        width: 100%;
+        padding: 10px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .tool{
+            width: var(--app-tool-size);
+            height: var(--app-tool-size);  
+            border-radius: var(--app-tool-bodr-r);
+        }
+        .l{
+            .x{background-color: red;}
+            .m{background-color: orange;}
+            .f{background-color: chartreuse;}
+        }
+        
+    }
+}
