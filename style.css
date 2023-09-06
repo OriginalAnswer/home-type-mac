@@ -21,8 +21,8 @@ button{
     --df-bodr: 1px #000 solid; /* var(--df-bodr) */
 
     --app-size:200px;
-    --app-hdr-h:100px;
-    --app-tool-size: 50px;
+    --app-hdr-h:30px;
+    --app-tool-size: 10px;
     --app-tool-bodr-r: 50px;
     --app-h: calc(var(--app-size) + var(--app-hdr-h));
     /* --app-tool-shadow-inset: inset ; */
