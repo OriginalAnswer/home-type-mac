@@ -18,15 +18,32 @@ button{
 /* 변수--------------------------------------------------------------- */
 :root{
     --df-c:#000;
-    --df-bodr: 1px #000 solid; /* var(--df-bodr) */
-
+    --df-bodr: 1px #000 solid;
+    /* border: var(--df-bodr); */
+    
+    
+    --app-bgc:#fff;
     --app-size:200px;
     --app-hdr-h:30px;
-    --app-tool-size: 10px;
+    --app-hdr-bgc:#f7f4f5;
+
+    --app-hdr-c:#5b5a5a;
+    --app-tool-size: 12px;
     --app-tool-bodr-r: 50px;
     --app-h: calc(var(--app-size) + var(--app-hdr-h));
     /* --app-tool-shadow-inset: inset ; */
     --app-bodr-r:12px;
+    --app-bodr:1px solid rgba(217, 217, 217, 0.781);
+}
+@media (prefers-color-scheme: dark) {
+    :root{
+        --df-c:#ffffff;
+        --df-bodr: 1px #ffffff solid;
+        
+        --app-bgc:#282127;
+        --app-hdr-bgc:#3b383b;
+        --app-hdr-c:#a7a4a7;
+    }
 }
 /* html, body */
 html{
@@ -45,7 +62,7 @@ main{
     width: 100vw;
     height: 100vh;
     position: relative;
-    background-color:aquamarine;
+    background-color: #f1f1f7;
 }
 .app{
     position: absolute;
@@ -53,15 +70,18 @@ main{
     left: 0;
     width: var(--app-size);
     height: var(--app-h);
-    border: var(--df-bodr);
-    background-color: #fffffff5;
+    border: var(--app-bodr);
     border-radius: var(--app-bodr-r);
+    background-color: var(--app-bgc);
+    overflow: hidden;
+    color: var(--df-c);
     > .header{
-        border: var(--df-bodr);
         height: var(--app-hdr-h);
         width: 100%;
         padding: 10px;
-
+        background-color: var(--app-hdr-bgc);
+        color: var(--app-hdr-c);
+        
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -69,15 +89,23 @@ main{
             width: var(--app-tool-size);
             height: var(--app-tool-size);  
             border-radius: var(--app-tool-bodr-r);
+            /* box-shadow: inset 0px 0px 1px #00000044; */
         }
         .l{
-            .x{
-                box-shadow: inset 6px -6px 12px #ed0000,
-                inset -6px 6px 12px #ff0000;
-    ;
-                background-color: red;}
-            .m{background-color: orange;}
-            .f{background-color: chartreuse;}
+            .x{background-color: #ff5f57;}
+            .m{background-color: #febc2e;}
+            .f{background-color: #27c840;}
+        }
+        .c{
+            >span{
+                font-weight: bold;
+                font-size: .9em;
+            }
+        }
+        .l{
+            i{
+                color: var(--app-hdr-c);
+            }
         }
         
     }
