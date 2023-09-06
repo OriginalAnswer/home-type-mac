@@ -20,11 +20,12 @@ button{
     --df-c:#000;
     --df-bodr: 1px #000 solid; /* var(--df-bodr) */
 
-    --app-hdr-h:30px;
-    --app-tool-size: 10px;
-    --app-tool-bodr-r: 50px;
     --app-size:200px;
+    --app-hdr-h:100px;
+    --app-tool-size: 50px;
+    --app-tool-bodr-r: 50px;
     --app-h: calc(var(--app-size) + var(--app-hdr-h));
+    /* --app-tool-shadow-inset: inset ; */
     --app-bodr-r:12px;
 }
 /* html, body */
@@ -70,7 +71,11 @@ main{
             border-radius: var(--app-tool-bodr-r);
         }
         .l{
-            .x{background-color: red;}
+            .x{
+                box-shadow: inset 6px -6px 12px #ed0000,
+                inset -6px 6px 12px #ff0000;
+    ;
+                background-color: red;}
             .m{background-color: orange;}
             .f{background-color: chartreuse;}
         }
