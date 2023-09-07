@@ -16,7 +16,7 @@ button{
     }
 }
 input, select, textarea{
-    border: 0;
+    /* border: 0; */
     outline: none;
     background: none;
 }
@@ -115,6 +115,11 @@ main{
         }
         .l{
             min-width: 45px;
+            
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
             .x{background-color: #ff5f57;}
             .m{background-color: #febc2e;}
             .f{background-color: #27c840;}
