@@ -8,8 +8,25 @@
 </head>
 <body>
     <main>
-        <div class="app box" id="012789473098" data-group="012789473098">
-            <div class="header" id="hi">
+        <div class="app box" id="012789473098" data-group="012789473098" style="z-index: 10;">
+            <div class="boxheader" id="hi" data-group="012789473098">
+                <div class="l">
+                    <button class="tool x"></button>
+                    <button class="tool m"></button>
+                    <button class="tool f"></button>
+                </div>
+                <div class="c">
+                    <span class="app-title">app.title</span>
+                </div>
+                <div class="r">
+                    <button class="more">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="app box" id="12" data-group="12" style="z-index: 10;">
+            <div class="boxheader" id="hi" data-group="12">
                 <div class="l">
                     <button class="tool x"></button>
                     <button class="tool m"></button>
@@ -34,11 +51,29 @@
     let offsetX, offsetY;
     let maxXPercent, maxYPercent;
     
-    const header = document.querySelector('.header');
+    // const header = document.querySelector('.boxheader');
+    let headers =document.querySelectorAll('.boxheader');
+
+    headers.forEach(h => {
+        h.addEventListener('mousedown', handleStart);
+        h.addEventListener('touchstart', handleStart);
+    })
+    let arr = [];
+    console.log(arr);
+    headers.forEach(h => {
+        const ID = h.dataset.group;
+        const app = document.getElementById(ID);
+        const z = app.style.zIndex;
+        console.log(ID);
+        console.log(app);
+        console.log(z);
+        arr.push(z);
+    })
+    console.log(arr);
     
-    header.addEventListener('mousedown', handleStart);
-    header.addEventListener('touchstart', handleStart);
-    
+    // header.addEventListener('mousedown', handleStart);
+    // header.addEventListener('touchstart', handleStart);
+
     function handleStart(e) {
         if (isDragging) return;
     
@@ -50,12 +85,19 @@
         if (isDragging || (currentTime - touchStartTime < 1000)) {
             return;
         }
-    
-        draggingBox = document.getElementById('012789473098');
+
+        const ID = e.target.dataset.group;
+        draggingBox = document.getElementById(ID);
+        
         offsetX = touch.clientX - draggingBox.getBoundingClientRect().left;
         offsetY = touch.clientY - draggingBox.getBoundingClientRect().top;
-    
+        
+        const zi = draggingBox.style.zIndex;
+        console.log(zi);
         document.body.style.cursor = 'grabbing';
+        draggingBox.style.webkitUserSelect = 'none';
+        draggingBox.style.transform = 'scale(1.05)';
+        draggingBox.style.zIndex = `${zi + 2}`;
     
         const startXPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
         const startYPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
@@ -91,6 +133,8 @@
         function endDrag() {
             if (draggingBox) {
             document.body.style.cursor = 'auto';
+            draggingBox.style.webkitUserSelect = '';
+            draggingBox.style.transform = 'scale(1)';
     
             document.removeEventListener('mousemove', moveHandler);
             document.removeEventListener('touchmove', moveHandler);

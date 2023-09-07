@@ -15,6 +15,9 @@ button{
     cursor: pointer;
     }
 }
+::-webkit-resizer {
+    display: none;
+  }
 /* ---- */
 /* 변수--------------------------------------------------------------- */
 :root{
@@ -70,6 +73,7 @@ main{
     overflow: hidden;
 }
 .app, .box{
+    z-index: 10;
     position: absolute;
     top: 0;
     left: 0;
@@ -82,7 +86,10 @@ main{
     color: var(--df-c);
     box-shadow: var(--app-box-shadow-1);
     transition: transform 0.2s;
-    > .header{
+    resize: both;
+    min-width: 175px;
+    min-height: 32px;
+    > .boxheader{
         height: var(--app-hdr-h);
         width: 100%;
         padding: 10px;
