@@ -15,6 +15,11 @@ button{
     cursor: pointer;
     }
 }
+input, select, textarea{
+    border: 0;
+    outline: none;
+    background: none;
+}
 ::-webkit-resizer {
     display: none;
   }
@@ -28,7 +33,7 @@ button{
     
     --app-bgc:#fff;
     --app-size:200px;
-    --app-hdr-h:30px;
+    --app-hdr-h:32px;
     --app-hdr-bgc:#f7f4f5;
     --app-hdr-c:#5b5a5a;
 
@@ -98,6 +103,7 @@ main{
         background-color: var(--app-hdr-bgc);
         color: var(--app-hdr-c);
         
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -108,18 +114,29 @@ main{
             /* box-shadow: inset 0px 0px 1px #00000044; */
         }
         .l{
+            min-width: 45px;
             .x{background-color: #ff5f57;}
             .m{background-color: #febc2e;}
             .f{background-color: #27c840;}
         }
         .c{
-            >span{
+            margin: 0 5px;
+            > .app-title{
+                width: 100%;
+                text-align: center;
                 font-weight: bold;
                 font-size: .9em;
             }
         }
         .r{
+            width: 45px;
+            max-width: 45px;
+            display: flex;
+            justify-content: right;
+            align-items: center;
             .more{
+                width: var(--app-tool-size);
+                height: var(--app-tool-size); 
                 background-color: var(--app-hdr-bgc);
                 color: var(--app-hdr-c);
             }
