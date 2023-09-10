@@ -7,52 +7,46 @@
     <title>Mac</title>
 </head>
 <body>
+    <nav>
+
+    </nav>
     <main>
-        <div class="app box" id="012789473098" data-group="012789473098" style="z-index: 10;">
-            <div class="boxheader" id="hi" data-group="012789473098">
-                <div class="l">
-                    <button class="tool x"></button>
-                    <button class="tool m"></button>
-                    <button class="tool f"></button>
-                </div>
-                <div class="c">
-                    <input type="text" class="app-title" value="hi">
-                </div>
-                <div class="r">
-                    <button class="more">
+        <div class="bx" id="12" data-group="12" style="z-index: 10;">
+            <input type="checkbox" id="bx-12-door" class="bx-set-door dpnone">
+            <section class="bx-set">
+
+            </section>
+            <section class="bx-ctrl">
+                <button class="tool x"></button>
+                <button class="tool m"></button>
+                <button class="tool f"></button>
+            </section>
+            <section class="bx-main">
+                <div class="bx-hdr" id="hi" data-group="12">
+                    <div class="c">
+                        <label for="title-123" class="bx-title">hi</label>
+                        <input type="text" class="bx-title-input dpnone" id="title-123" value="hi">
+                    </div>
+
+                    <label for="bx-12-door"  class="r">
                         <i class="fa-solid fa-ellipsis-vertical"></i>
-                    </button>
+                    </label>
+
                 </div>
-            </div>
-        </div>
-        <div class="app box" id="12" data-group="12" style="z-index: 10;">
-            <div class="boxheader" id="hi" data-group="12">
-                <div class="l">
-                    <button class="tool x"></button>
-                    <button class="tool m"></button>
-                    <button class="tool f"></button>
-                </div>
-                <div class="c">
-                    <input type="text" class="app-title" value="hi">
-                </div>
-                <div class="r">
-                    <button class="more">
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                    </button>
-                </div>
-            </div>
+                <div class="apps"></div>
+            </section>
         </div>
     </main>
 
     <script>
     let isDragging = false;
-    let draggingBox = null;
+    let draggingbx = null;
     let touchStartTime = 0;
     let offsetX, offsetY;
     let maxXPercent, maxYPercent;
     
-    // const header = document.querySelector('.boxheader');
-    let headers =document.querySelectorAll('.boxheader');
+    // const header = document.querySelector('.bx-hdr');
+    let headers =document.querySelectorAll('.bx-hdr');
 
     headers.forEach(h => {
         h.addEventListener('mousedown', handleStart);
@@ -62,10 +56,10 @@
     console.log(arr);
     headers.forEach(h => {
         const ID = h.dataset.group;
-        const app = document.getElementById(ID);
-        const z = app.style.zIndex;
+        const bx= document.getElementById(ID);
+        const z = bx.style.zIndex;
         console.log(ID);
-        console.log(app);
+        console.log(bx);
         console.log(z);
         arr.push(z);
     })
@@ -82,31 +76,31 @@
     
         setTimeout(() => {
         const currentTime = new Date().getTime();
-        if (isDragging || (currentTime - touchStartTime < 1000)) {
+        if (isDragging || (currentTime - touchStartTime < 200)) {
             return;
         }
 
         const ID = e.target.dataset.group;
-        draggingBox = document.getElementById(ID);
+        draggingbx = document.getElementById(ID);
         
-        offsetX = touch.clientX - draggingBox.getBoundingClientRect().left;
-        offsetY = touch.clientY - draggingBox.getBoundingClientRect().top;
+        offsetX = touch.clientX - draggingbx.getBoundingClientRect().left;
+        offsetY = touch.clientY - draggingbx.getBoundingClientRect().top;
         
-        const zi = draggingBox.style.zIndex;
+        const zi = draggingbx.style.zIndex;
         console.log(zi);
         document.body.style.cursor = 'grabbing';
-        draggingBox.style.webkitUserSelect = 'none';
-        draggingBox.style.transform = 'scale(1.05)';
-        draggingBox.style.zIndex = `${zi + 2}`;
+        draggingbx.style.webkitUserSelect = 'none';
+        draggingbx.style.transform = 'scale(1.05)';
+        draggingbx.style.zIndex = `${zi + 2}`;
     
         const startXPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
         const startYPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
     
-        draggingBox.style.left = `${startXPercent}%`;
-        draggingBox.style.top = `${startYPercent}%`;
+        draggingbx.style.left = `${startXPercent}%`;
+        draggingbx.style.top = `${startYPercent}%`;
     
-        maxXPercent = 100 - (draggingBox.offsetWidth / window.innerWidth * 100);
-        maxYPercent = 100 - (draggingBox.offsetHeight / window.innerHeight * 100);
+        maxXPercent = 100 - (draggingbx.offsetWidth / window.innerWidth * 100);
+        maxYPercent = 100 - (draggingbx.offsetHeight / window.innerHeight * 100);
     
         document.addEventListener('mousemove', moveHandler);
         document.addEventListener('touchmove', moveHandler);
@@ -126,25 +120,25 @@
             xPercent = Math.min(maxXPercent, Math.max(0, xPercent));
             yPercent = Math.min(maxYPercent, Math.max(0, yPercent));
     
-            draggingBox.style.left = `${xPercent}%`;
-            draggingBox.style.top = `${yPercent}%`;
+            draggingbx.style.left = `${xPercent}%`;
+            draggingbx.style.top = `${yPercent}%`;
         }
     
         function endDrag() {
-            if (draggingBox) {
+            if (draggingbx) {
             document.body.style.cursor = 'auto';
-            draggingBox.style.webkitUserSelect = '';
-            draggingBox.style.transform = 'scale(1)';
+            draggingbx.style.webkitUserSelect = '';
+            draggingbx.style.transform = 'scale(1)';
     
             document.removeEventListener('mousemove', moveHandler);
             document.removeEventListener('touchmove', moveHandler);
-            draggingBox = null;
+            draggingbx = null;
             isDragging = false;
             }
         }
     
         isDragging = true;
-        }, 1000);
+        }, 200);
     }
     </script>
       
