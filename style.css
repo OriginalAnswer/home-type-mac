@@ -42,7 +42,7 @@ input, select, textarea{
     
     --bx-ctrl-width:45px;
     --bx-hdr-h: 35px;
-    --bx-hdr-bgc:#f5eeeeca;
+    --bx-hdr-bgc:#f5eeee;
     --bx-hdr-c:#5b5a5a;
     
     --bx-tool-size: 12px;
@@ -91,6 +91,8 @@ body{
     height: 100vh;
     position: relative;
     background-color: var(--df-body-bgc);
+    background-image: url(./1.png);
+    background-position: center;
 }
 /* --------------------------------------------------------------- */
 .toolbar{
@@ -162,9 +164,9 @@ main{
         padding: var(--bx-hdr-h);
         
         background-color: var(--bx-set-bgc);
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(4px);
-        opacity: 0;
+        /* opacity: 0; */
         transition: opacity .5s ease-in-out;
 
         border-right: var(--bx-set-bodr);
@@ -193,9 +195,9 @@ main{
             color: var(--bx-hdr-c);
             
             .c{
-                width: 100%;
-                /* margin: auto; */
-                margin-left: var(--bx-ctrl-width);
+                /* margin-right: auto; */
+                /* margin-left: calc(auto + var(--bx-ctrl-width)); */
+                margin: auto;
                 transition: margin .5s ease-in-out;
                 
                 text-align: center;
@@ -203,8 +205,9 @@ main{
                 font-size: .9em;
             }
             .r{
-                width: 45px;
-                max-width: 45px;
+                width: var(--bx-tool-size);
+                height: var(--bx-tool-size);
+                /* max-width: 45px; */
                 display: flex;
                 justify-content: right;
                 align-items: center;
@@ -240,9 +243,15 @@ main{
     .bx-set-door:checked ~ .bx-main{
         margin-left: var(--bx-set-width);
     }
-    .bx-set-door:checked ~ .bx-main .bx-hdr .c{
+    /* .bx-set-door:checked ~ .bx-main .bx-hdr .c{
         margin-left: 0;
-    }
+    } */
+}
+/* 박스 안의 앱들 */
+.bx-apps{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 
