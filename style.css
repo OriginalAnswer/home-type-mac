@@ -69,7 +69,7 @@ input, select, textarea{
         --bx-hdr-bgc:#3b383b;
         --bx-hdr-c:#a7a4a7;
         
-        --bx-set-bgc:#4b4a4a62;
+        --bx-set-bgc:#2a2a2ab1;
         --bx-set-bodr: 1px soild rgba(0, 0, 0, 0.781);
         
         --bx-box-shadow-1: 0 5px 10px 0 rgba(0, 0, 0, 0);
@@ -103,6 +103,7 @@ body{
     background-color: var(--tlb-bgc);
 }
 /* 앱, 박스--------------------------------------------------------------- */
+/* transition: margin .5s ease-in-out; */
 main{
     width: 100vw;
     height: calc(100vh - var(--tlb-h));
@@ -114,8 +115,8 @@ main{
     position: absolute;
     top: 0;
     left: 0;
-    /* width: var(--bx-size); */
-    /* height: var(--bx-h); */
+    width: var(--bx-size);
+    height: var(--bx-h);
     border: var(--bx-bodr);
     border-radius: var(--bx-bodr-r);
     /* background-color: var(--bx-bgc); */
@@ -128,6 +129,7 @@ main{
     min-height: var(--bx-hdr-h);
     max-width: 100%;
     max-height: 100%;
+
     > .bx-ctrl{
         position: absolute;
         z-index: 1;
@@ -150,9 +152,9 @@ main{
                 transform: scale(1.08);
             }
         }
-        .x{background-color: #ff5f57;}
-        .m{background-color: #febc2e;}
-        .f{background-color: #27c840;}
+        .bx-x{background-color: #ff5f57;}
+        .bx-m{background-color: #febc2e;}
+        .bx-f{background-color: #27c840;}
     }
     > .bx-set{
         position: absolute;
@@ -246,6 +248,11 @@ main{
     /* .bx-set-door:checked ~ .bx-main .bx-hdr .c{
         margin-left: 0;
     } */
+}
+/* 박스 사이장 자바스크립트 토글 */
+.bx-f-o{
+    width: 100%;
+    height: 100%;
 }
 /* 박스 안의 앱들 */
 .bx-apps{
