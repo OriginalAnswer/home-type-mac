@@ -15,7 +15,7 @@ function getTime() {
     const s = String(date.getSeconds()).padStart(2,"0");
     
     const wArrEN = new Array('Sun','Mon','Tue','Wed','Thur','Fri','Sat');
-    const wArrKR = new Array('일','월요일','화','수','목','금','토');
+    const wArrKR = new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일');
     const mArr = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
     const D = String(date.getDate());
     const M = date.getMonth();
