@@ -1,5 +1,4 @@
-const btnNewB = document.querySelector('#btn-new-bx');
-btnNewB.addEventListener
+// const btnNewB = document.querySelector('#btn-new-bx');
 
 let bxArr = [];
 
@@ -19,22 +18,19 @@ function newBox() {
     
     addNewBox(nbxObj); // 새로운 앱 요소 생성 및 추가
     saveBxArr(); // appsArr 저장
-
-    const newAppToggle = document.getElementById('newapptoggle');
-    if (newAppToggle) {
-        newAppToggle.checked = false;
-    };
 }
 
 function saveBxArr() {
     localStorage.setItem('bxArr', JSON.stringify(bxArr));
 }
 
-const main = document.getElementsByTagName('main');
 
 function addNewBox(obj) {
+    const main = document.getElementById('main');
     const bx = document.createElement('div');
     const ID = obj.id;
+    const bxw = obj.width;
+    const bxh = obj.height;
     bx.id = `bx-${obj.id}`;
     bx.classList.add('bx');
     bx.dataset.group = obj.id;
@@ -76,4 +72,5 @@ function addNewBox(obj) {
             <div class="bx-apps" id="apps-${ID}"></div>
         </section>
     `;
+    main.appendChild(bx);
 }
