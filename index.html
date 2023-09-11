@@ -12,7 +12,7 @@
             <div><div class="top-time"></div></div>
         </div>
         <div class="c">
-            <div>
+            <div class="btn-new-bx">
                 <i class="fa-solid fa-plus add-bx-icon"></i>
             </div>
         </div>
@@ -66,6 +66,7 @@
 
     </footer>
     <script src="toolbar.js"></script>
+    <script src="box.js"></script>
     <script>
     let isDragging = false;
     let draggingbx = null;
@@ -115,7 +116,6 @@
             document.body.style.cursor = 'grabbing';
             draggingbx.style.webkitUserSelect = 'none';
             draggingbx.style.transform = 'scale(1.02)';
-            // draggingbx.style.zIndex = `${zi + 2}`;
         
             const startXPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
             const startYPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
@@ -185,12 +185,10 @@ const observer = new ResizeObserver((bx) => {
     const bxSet = document.getElementById(bx.target.id).querySelector('.bx-set');
 
     const w = bx.contentRect.width;
-    console.log(bxSet.style.width);
-    if(w < 200){
+    // if(w < 200){
         
-    }
+    // }
     console.log(Math.floor(bx.contentRect.width) + '*' + Math.floor(bx.contentRect.height));
-    console.log(bxSet);
   });
 });
 
