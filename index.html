@@ -8,6 +8,17 @@
 </head>
 <body>
     <div class="toolbar">
+        <div class="l">
+            <i>MON PM 4:55</i>
+            <div class="top-time"></div>
+        </div>
+        <div class="c">
+            <i class="fa-solid fa-plus"></i>
+        </div>
+        <div class="r">
+            <!-- <i class="fa-solid fa-gear"></i> -->
+            <i>set</i>
+        </div>
     </div>
     <main>
         <div class="bx" id="1234567890" data-group="1234567890" style="z-index: 10;" onfocus="bxToTop()">
@@ -35,6 +46,10 @@
             </section>
         </div>
     </main>
+
+    <footer>
+
+    </footer>
 
     <script>
     let isDragging = false;
@@ -141,9 +156,13 @@
     function bxF(){
         const ID = event.target.parentElement.parentElement.dataset.group;
         const bx = document.getElementById(ID);
-        bx.classList.toggle('bx-f-o');
+        bx.style.top = '0';
+        bx.style.left = '0';
+        bx.style.width = '100%';
+        bx.style.height = '100%';
+        bx.style.transition = 'all .5s ease-in-out';
     };
-    
+
     </script>
       
     
