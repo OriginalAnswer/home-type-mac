@@ -41,6 +41,7 @@ input, select, textarea{
     --bx-set-bgc:#cfcfcf92;
     --bx-set-bodr: 1px soild rgba(217, 217, 217, 0.781);
     --bx-set-width:40%;
+    --bx-set-c:#272727;
     --bx-t-shdw:0px 3px 5px rgba(0, 0, 0, 0.146);;
     
     --bx-ctrl-width:45px;
@@ -74,6 +75,7 @@ input, select, textarea{
         
         --bx-set-bgc:#2a2a2ab1;
         --bx-set-bodr: 1px soild rgba(0, 0, 0, 0.781);
+        --bx-set-c:#ffffff;
         
         --bx-box-shadow-1: 0 5px 10px 0 rgba(0, 0, 0, 0);
 
@@ -214,7 +216,8 @@ main{
         z-index: -1;
         top: 0;
         left: 0;
-        width: var(--bx-set-width);
+        /* width: var(--bx-set-width); */
+        width: 100%;
         height: 100%;
         padding: calc(var(--bx-hdr-h) + (var(--bx-hdr-h)/1.5)) var(--bx-hdr-h) 20px;
         
@@ -231,14 +234,24 @@ main{
             >div{
                 margin-bottom: 5px;
                 & .title{
-                    color: #272727;
+                    color: var(--bx-set-c);
                     font-size: .95em;
                     text-shadow: var(--bx-t-shdw);
                 }
             }
+            & .bx-set-apps{
+                display: flex;
+                flex-direction: column;
+            }
         }
     }
-    
+    .bx-set-door:checked ~ .bx-set{
+        opacity: 1;
+    }
+    .bx-set-door:checked ~ .bx-main{
+        /* margin-left: var(--bx-set-width); */
+        margin-left: 70%;
+    }
 
     > .bx-main{
         position: relative;
@@ -304,16 +317,13 @@ main{
         font-weight: bold;
         font-size: .9em;
     }
-    .bx-set-door:checked ~ .bx-set{
-        opacity: 1;
-    }
-    .bx-set-door:checked ~ .bx-main{
-        margin-left: var(--bx-set-width);
-    }
     /* .bx-set-door:checked ~ .bx-main .bx-hdr .c{
         margin-left: 0;
     } */
 }
+/* 박스 세팅 토글 */
+
+
 
 /* 박스 안의 앱들 */
 .bx-apps{

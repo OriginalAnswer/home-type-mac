@@ -13,11 +13,11 @@ function newBox() {
         statu: 'respone',
         zindex: z,
         width: 250,
-        height: 250
+        height: 250,
     }; 
     bxArr.push(nbxObj);
     
-    createNewBx(nbxObj); // 새로운 앱 요소 생성 및 추가
+    addNewBox(nbxObj); // 새로운 앱 요소 생성 및 추가
     saveBxArr(); // appsArr 저장
 
     const newAppToggle = document.getElementById('newapptoggle');
