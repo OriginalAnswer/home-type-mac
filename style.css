@@ -1,3 +1,4 @@
+@import url(./box.css);
 /* 디폴트 */
 * {
     box-sizing: border-box; 
@@ -61,6 +62,8 @@ input, select, textarea{
     --bx-box-shadow-inset-1: 5px 3px 10px -2px rgba(240, 240, 240, 0.796) inset;
     
     --bx-apps-bgc:#fff;
+
+    --f-h:85px
 }
 @media (prefers-color-scheme: dark) {
     :root{
@@ -88,7 +91,7 @@ html{
         display: none;
       }
     width: 100%;
-    height: 100%;
+    height: 100vh;
     overscroll-behavior: contain;
 }
 body{
@@ -155,185 +158,24 @@ body{
     }
 }
 footer{
-
+position: relative;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 85px;
+/* padding: 15px; */
+border: 1px solid #000;
 }
 /* 앱, 박스--------------------------------------------------------------- */
 /* transition: margin .5s ease-in-out; */
 main{
     width: 100vw;
-    height: calc(100vh - var(--tlb-h));
+    height: 100%;
+    height: calc(100vh - var(--tlb-h) - var(--f-h));
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
 }
-.bx{
-    z-index: 10;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: var(--bx-size);
-    height: var(--bx-h);
-    border: var(--bx-bodr);
-    border-radius: var(--bx-bodr-r);
-    /* background-color: var(--bx-bgc); */
-    overflow: hidden;
-    color: var(--df-c);
-    box-shadow: var(--bx-box-shadow-1);
-    transition: transform 0.2s;
-    resize: both;
-    min-width: 175px;
-    min-height: var(--bx-hdr-h);
-    max-width: 100%;
-    max-height: 100%;
-
-    > .bx-ctrl{
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        left: 10px;
-        height: var(--bx-hdr-h);
-        min-width: var(--bx-ctrl-width);
-
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-
-        > .tool{
-            /* box-shadow: inset 0px 0px 1px #00000044; */
-            width: var(--bx-tool-size);
-            height: var(--bx-tool-size);  
-            border-radius: var(--bx-tool-bodr-r);
-            &:hover{
-                transform: scale(1.08);
-            }
-        }
-        .bx-x{background-color: #ff5f57;}
-        .bx-m{background-color: #febc2e;}
-        .bx-f{background-color: #27c840;}
-    }
-    > .bx-set{
-        position: absolute;
-        z-index: -1;
-        top: 0;
-        left: 0;
-        /* width: var(--bx-set-width); */
-        width: 100%;
-        height: 100%;
-        padding: calc(var(--bx-hdr-h) + (var(--bx-hdr-h)/1.5)) var(--bx-hdr-h) 20px;
-        
-        background-color: var(--bx-set-bgc);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(4px);
-        /* opacity: 0; */
-        transition: opacity .5s ease-in-out;
-        border-right: var(--bx-set-bodr);
-        > .bx-set-main{
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            >div{
-                margin-bottom: 5px;
-                & .title{
-                    color: var(--bx-set-c);
-                    font-size: .95em;
-                    text-shadow: var(--bx-t-shdw);
-                }
-            }
-            & .bx-set-apps{
-                display: flex;
-                flex-direction: column;
-            }
-        }
-    }
-    .bx-set-door:checked ~ .bx-set{
-        opacity: 1;
-    }
-    .bx-set-door:checked ~ .bx-main{
-        /* margin-left: var(--bx-set-width); */
-        margin-left: 70%;
-    }
-
-    > .bx-main{
-        position: relative;
-        height: 100%;
-        margin-left: 0;
-        /* background-color: var(--bx-bgc); */
-        transition: margin .5s ease-in-out;
-        /* background-color: #000000; */
-        > .bx-hdr{
-            position: relative;
-
-            height: var(--bx-hdr-h);
-            width: 100%;
-            padding: 10px;
-            
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            
-            background-color: var(--bx-hdr-bgc);
-            color: var(--bx-hdr-c);
-            
-            .c{
-                /* margin-right: auto; */
-                /* margin-left: calc(auto + var(--bx-ctrl-width)); */
-                margin: auto;
-                transition: margin .5s ease-in-out;
-                
-                text-align: center;
-                font-weight: bold;
-                font-size: .9em;
-            }
-            .r{
-                width: var(--bx-tool-size);
-                height: var(--bx-tool-size);
-                /* max-width: 45px; */
-                display: flex;
-                justify-content: right;
-                align-items: center;
-            }
-            .r i{
-                width: calc(var(--bx-tool-size) -1px);
-                height: calc(var(--bx-tool-size) -1px); 
-                background-color: var(--bx-hdr-bgc);
-                color: var(--bx-hdr-c);
-            }
-            .r i:hover{
-                cursor: pointer;
-            }
-            
-        }
-        .bx-apps{
-            /* height: 100%; */
-            height: calc(100% - var(--bx-hdr-h));
-            /* margin-top: var(--bx-hdr-h); */
-            background-color: var(--bx-apps-bgc);
-        }
-    }
-    .bx-title-input{
-        width: 100%;
-        font-weight: bold;
-        text-align: center;
-        font-weight: bold;
-        font-size: .9em;
-    }
-    /* .bx-set-door:checked ~ .bx-main .bx-hdr .c{
-        margin-left: 0;
-    } */
-}
-/* 박스 세팅 토글 */
-
-
-
-/* 박스 안의 앱들 */
-.bx-apps{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-
-
 /* 디폴트2 */
 .dpnone{
     display: none;
