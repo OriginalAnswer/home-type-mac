@@ -169,12 +169,59 @@ border: 1px solid #000;
 /* 앱, 박스--------------------------------------------------------------- */
 /* transition: margin .5s ease-in-out; */
 main{
+    position: relative;
     width: 100vw;
     height: 100%;
     height: calc(100vh - var(--tlb-h) - var(--f-h));
-    position: relative;
     overflow-x: hidden;
     overflow-y: visible;
+    background: #4ee807d8;
+}
+/* 위젯 스크린--------------------------------------------------------------- */
+.w-screen{
+    z-index: 0;
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #5730d78b;
+}
+/* 좌측 박스리스트--------------------------------------------------------------- */
+.l-screen{
+    z-index: 1000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width:400px;
+    height: 100%;
+    background: #d7307b8b;
+    & .l{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 100px 100px 100px 50px;
+        & .stacks{
+            border: 1px solid #000;
+            height: 100%;
+            width: 100%;
+        }
+    }
+    & .r{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border: 1px solid #000;
+    }
 }
 /* 디폴트2 */
 .dpnone{
