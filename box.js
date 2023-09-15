@@ -11,7 +11,8 @@ function newBox() {
         statu: 'respone',
         zindex: z,
         width: 300,
-        height: 300,
+        height: 200,
+        num: Length,
     }; 
     bxArr.push(nbxObj);
     
@@ -25,20 +26,22 @@ function saveBxArr() {
 
 
 function addNewBox(obj) {
-    const main = document.getElementById('main');
-    const bx = document.createElement('div');
+    const bs = document.querySelector('.bs');
     const ID = obj.id;
+    const bx = document.createElement('div');
     const bxw = obj.width;
     const bxh = obj.height;
+    const z = obj.zindex;
+    const n = obj.num;
 
-    bx.id = `bx-${obj.id}`;
+    bx.id = `bx${obj.id}`;
     bx.classList.add('bx');
     bx.dataset.group = obj.id;
-    bx.style.zindex = obj.z;
+    bx.setAttribute('style',`position:absolute;z-index:${z};top:${(n*10)+10}px;left:${(n*10)+10}px; width:${bxw}px; height:${bxh}px`)
 
     bx.innerHTML = `
-        <input type="checkbox" id="door-${ID}" class="bx-set-door dpnone">
-        <section class="bx-set" id="set-${ID}">
+        <input type="checkbox" id="door${ID}" class="bx-set-door dpnone">
+        <section class="bx-set" id="set${ID}">
             <div class="bx-set-main">
                 <div class="bx-set-title">
                     <div class="title">
@@ -71,21 +74,28 @@ function addNewBox(obj) {
             <button class="tool bx-m"></button>
             <button class="tool bx-f" onclick="bxFull()"></button>
         </section>
-        <section class="bx-main" id="main-${ID}">
-            <div class="bx-hdr" data-group="${ID}" id="hdr-${ID}">
+        <label for="door${ID}"  class="bx-door">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </label>
+        <section class="bx-view" id="view${ID}">
+            <div class="bx-hdr" data-group="${ID}" id="hdr${ID}" onclick="dragBx()">
                 <div class="c">
-                    <label for="title-${ID}" class="bx-title"></label>
-                    <input type="text" class="bx-title-input dpnone" id="title-${ID}">
+                    <label for="title${ID}" class="bx-title"></label>
+                    <input type="text" class="bx-title-input dpnone" id="title${ID}">
                 </div>
 
-                <label for="door-${ID}"  class="r">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </label>
             </div>
-            <div class="bx-apps" id="apps-${ID}"></div>
+            <div class="bx-main" id="main${ID}">
+                <div class="app-link dpnone" id="link${ID}"></div>
+                <div class="app-task dpnone" id="task${ID}"></div>
+                <div class="bx-txt">
+                    <textarea class="app-txt" id="txt${ID}"></textarea>
+                </div>
+                <div class="tags dpnone" id="tags${ID}"></div>
+            </div>
         </section>
     `;
-    main.appendChild(bx);
+    bs.appendChild(bx);
     const bxObj = {
         id:ID,
         link:0,
@@ -95,6 +105,10 @@ function addNewBox(obj) {
         taskContents:[],
         textContents: ""
     }
-    localStorage.setItem(`${ID}`,JSON.stringify(bxObj));
-    
+    localStorage.setItem(`${ID}`,JSON.stringify(bxObj));   
+    // setZ(ID,obj.z);
 }
+// function setZ(ID,z){
+//     const bx = document.getElementById(`bx${ID}`);
+//     bx.style.zIndex = String(z);
+// }

@@ -4,12 +4,14 @@ let touchStartTime = 0;
 let offsetX, offsetY;
 let maxXPercent, maxYPercent;
 
-let headers =document.querySelectorAll('.bx-hdr');
-
-headers.forEach(h => {
-    h.addEventListener('mousedown', handleStart);
-    h.addEventListener('touchstart', handleStart);
-})
+function dragBx(){
+    let headers =document.querySelectorAll('.bx-hdr');
+    
+    headers.forEach(h => {
+        h.addEventListener('mousedown', handleStart);
+        h.addEventListener('touchstart', handleStart);
+    })
+}
     //박스 클릭 최상단
 let bxZindexArr = [];
 
