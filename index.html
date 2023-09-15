@@ -7,34 +7,45 @@
     <title>Mac</title>
 </head>
 <body>
-    <div class="toolbar">
-        <div class="l">
-            <div><div class="top-time"></div></div>
-        </div>
-        <div class="c">
-            <div class="btn-new-bx" onclick="newBox()">
-                <i class="fa-solid fa-plus add-bx-icon"></i>
-            </div>
-        </div>
-        <div class="r">
-            <!-- <i class="fa-solid fa-gear"></i> -->
-            <div>set</div>
+<!-- re -------------------------------------------------- -->
+<input type="checkbox" id="lw-door" class="dpnone">
+<input type="checkbox" id="set-door" class="dpnone">
+
+<label class="lw-back" for="lw-door"></label>
+<div class="lw">
+    <div class="l">
+        <div class="stacks-box"> </div>
+    </div>
+    <label class="r" for="lw-door">
+        <button>
+            <i class="fas fa-angle-right"></i>
+            <i class="fas fa-angle-right"></i>
+        </button>
+    </div>
+</div>
+
+<div class="rw"></div>
+<label class="rw-back" for="set-door"></label>
+
+
+<div class="tb">
+    <div class="l">
+        <div><div class="top-time"></div></div>
+    </div>
+    <div class="c">
+        <div class="btn-new-bx" onclick="newBox()">
+            <i class="fa-solid fa-plus add-bx-icon"></i>
         </div>
     </div>
-    <section class="w-screen"> </section>
-    <section class="l-screen">
-        <div class="l">
-            <div class="stacks"></div>
-        </div>
-        <div class="r">
-            <button>
-                <i class="fas fa-angle-right"></i>
-                <i class="fas fa-angle-right"></i>
-            </button>
-        </div>
-    </section>
-    <main id="main">
-     <div class="bx" id="1234567890" data-group="1234567890" style="z-index: 10;" onfocus="bxToTop()">
+    <div class="r">
+        <!-- <i class="fa-solid fa-gear"></i> -->
+        <label for="set-door-inp">set</label>
+    </div>
+</div>
+<main id="main">
+    <div class="ws"></div>
+    <div class="bs">
+        <div class="bx" id="1234567890" data-group="1234567890" style="z-index: 10;" onfocus="bxToTop()">
             <input type="checkbox" id="bx-12-door" class="bx-set-door dpnone">
             <input type="checkbox" id="input-onoff-link-id" class="dpnone">
             <section class="bx-set">
@@ -85,141 +96,147 @@
                 <div class="bx-apps"></div>
             </section>
         </div>
-    </main>
+    </div>
+</main>
+<footer></footer>
 
-    <footer>
 
-    </footer>
+
+
+
+<!-- re -------------------------------------------------- -->
+
+
+
     <script src="toolbar.js"></script>
     <script src="box.js"></script>
     <script>
-    let isDragging = false;
-    let draggingbx = null;
-    let touchStartTime = 0;
-    let offsetX, offsetY;
-    let maxXPercent, maxYPercent;
-    
-    let headers =document.querySelectorAll('.bx-hdr');
-
-    headers.forEach(h => {
-        h.addEventListener('mousedown', handleStart);
-        h.addEventListener('touchstart', handleStart);
-    })
-        //박스 클릭 최상단
-    let bxZindexArr = [];
-
-    console.log(bxZindexArr);
-    function toTopBox() {
-        const ID = event.target.dataset.group;
-        const z = document.getElementById(ID).style.zIndex;
-        console.log(ID);
-        console.log(z);
-    }
-
-    function handleStart(e) {
-        if (isDragging) return;
+        let isDragging = false;
+        let draggingbx = null;
+        let touchStartTime = 0;
+        let offsetX, offsetY;
+        let maxXPercent, maxYPercent;
         
-        toTopBox(e);
+        let headers =document.querySelectorAll('.bx-hdr');
 
-        touchStartTime = new Date().getTime();
-        const touch = e.type === 'touchstart' ? e.touches[0] : e;
-    
-        setTimeout(() => {
-            const currentTime = new Date().getTime();
-            if (isDragging || (currentTime - touchStartTime < 200)) {
-                return;
-            }
+        headers.forEach(h => {
+            h.addEventListener('mousedown', handleStart);
+            h.addEventListener('touchstart', handleStart);
+        })
+            //박스 클릭 최상단
+        let bxZindexArr = [];
 
-            const ID = e.target.dataset.group;
-            draggingbx = document.getElementById(ID);
+        console.log(bxZindexArr);
+        function toTopBox() {
+            const ID = event.target.dataset.group;
+            const z = document.getElementById(ID).style.zIndex;
+            console.log(ID);
+            console.log(z);
+        }
+
+        function handleStart(e) {
+            if (isDragging) return;
             
-            offsetX = touch.clientX - draggingbx.getBoundingClientRect().left;
-            offsetY = touch.clientY - draggingbx.getBoundingClientRect().top;
-            
-            const zi = draggingbx.style.zIndex;
-            // console.log(zi);
-            document.body.style.cursor = 'grabbing';
-            draggingbx.style.webkitUserSelect = 'none';
-            draggingbx.style.transform = 'scale(1.02)';
-        
-            const startXPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
-            const startYPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
-    
-            draggingbx.style.left = `${startXPercent}%`;
-            draggingbx.style.top = `${startYPercent}%`;
-        
-            maxXPercent = 100 - (draggingbx.offsetWidth / window.innerWidth * 100);
-            maxYPercent = 100 - (draggingbx.offsetHeight / window.innerHeight * 100);
-        
-            document.addEventListener('mousemove', moveHandler);
-            document.addEventListener('touchmove', moveHandler);
-        
-            document.addEventListener('mouseup', () => {
-                endDrag();
-            });
-            document.addEventListener('touchend', () => {
-                endDrag();
-            });
+            toTopBox(e);
 
-            function moveHandler(e) {
-                const touch = e.type === 'touchmove' ? e.touches[0] : e;
-                let xPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
-                let yPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
+            touchStartTime = new Date().getTime();
+            const touch = e.type === 'touchstart' ? e.touches[0] : e;
         
-                xPercent = Math.min(maxXPercent, Math.max(0, xPercent));
-                yPercent = Math.min(maxYPercent, Math.max(0, yPercent));
-        
-                draggingbx.style.left = `${xPercent}%`;
-                draggingbx.style.top = `${yPercent}%`;
-            }
-        
-            function endDrag() {
-                if (draggingbx) {
-                document.body.style.cursor = 'auto';
-                draggingbx.style.webkitUserSelect = '';
-                draggingbx.style.transform = 'scale(1)';
-        
-                document.removeEventListener('mousemove', moveHandler);
-                document.removeEventListener('touchmove', moveHandler);
-                draggingbx = null;
-                isDragging = false;
+            setTimeout(() => {
+                const currentTime = new Date().getTime();
+                if (isDragging || (currentTime - touchStartTime < 200)) {
+                    return;
                 }
-            }
+
+                const ID = e.target.dataset.group;
+                draggingbx = document.getElementById(ID);
+                
+                offsetX = touch.clientX - draggingbx.getBoundingClientRect().left;
+                offsetY = touch.clientY - draggingbx.getBoundingClientRect().top;
+                
+                const zi = draggingbx.style.zIndex;
+                // console.log(zi);
+                document.body.style.cursor = 'grabbing';
+                draggingbx.style.webkitUserSelect = 'none';
+                draggingbx.style.transform = 'scale(1.02)';
+            
+                const startXPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
+                const startYPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
         
-            isDragging = true;
-        }, 200);
-    }
+                draggingbx.style.left = `${startXPercent}%`;
+                draggingbx.style.top = `${startYPercent}%`;
+            
+                maxXPercent = 100 - (draggingbx.offsetWidth / window.innerWidth * 100);
+                maxYPercent = 100 - (draggingbx.offsetHeight / window.innerHeight * 100);
+            
+                document.addEventListener('mousemove', moveHandler);
+                document.addEventListener('touchmove', moveHandler);
+            
+                document.addEventListener('mouseup', () => {
+                    endDrag();
+                });
+                document.addEventListener('touchend', () => {
+                    endDrag();
+                });
 
-//박스 좌측 상단 버튼
-    //최대화
+                function moveHandler(e) {
+                    const touch = e.type === 'touchmove' ? e.touches[0] : e;
+                    let xPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
+                    let yPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
+            
+                    xPercent = Math.min(maxXPercent, Math.max(0, xPercent));
+                    yPercent = Math.min(maxYPercent, Math.max(0, yPercent));
+            
+                    draggingbx.style.left = `${xPercent}%`;
+                    draggingbx.style.top = `${yPercent}%`;
+                }
+            
+                function endDrag() {
+                    if (draggingbx) {
+                    document.body.style.cursor = 'auto';
+                    draggingbx.style.webkitUserSelect = '';
+                    draggingbx.style.transform = 'scale(1)';
+            
+                    document.removeEventListener('mousemove', moveHandler);
+                    document.removeEventListener('touchmove', moveHandler);
+                    draggingbx = null;
+                    isDragging = false;
+                    }
+                }
+            
+                isDragging = true;
+            }, 200);
+        }
 
-    function bxF(){
-        const ID = event.target.parentElement.parentElement.dataset.group;
-        const bx = document.getElementById(ID);
-        bx.style.top = '0';
-        bx.style.left = '0';
-        bx.style.width = '100%';
-        bx.style.height = '100%';
-        bx.style.transition = 'all .5s ease-in-out';
-    };
+        //박스 좌측 상단 버튼
+            //최대화
 
-const bxs = document.querySelectorAll('.bx');
+        function bxF(){
+            const ID = event.target.parentElement.parentElement.dataset.group;
+            const bx = document.getElementById(ID);
+            bx.style.top = '0';
+            bx.style.left = '0';
+            bx.style.width = '100%';
+            bx.style.height = '100%';
+            bx.style.transition = 'all .5s ease-in-out';
+        };
 
-const observer = new ResizeObserver((bx) => {
-  bx.forEach((bx) => {
-    const bxSet = document.getElementById(bx.target.id).querySelector('.bx-set');
+            const bxs = document.querySelectorAll('.bx');
 
-    const w = bx.contentRect.width;
-    // if(w < 200){
-        
-    // }
-    console.log(Math.floor(bx.contentRect.width) + '*' + Math.floor(bx.contentRect.height));
-  });
-});
+            const observer = new ResizeObserver((bx) => {
+            bx.forEach((bx) => {
+                const bxSet = document.getElementById(bx.target.id).querySelector('.bx-set');
 
-// 크기변화를 관찰할 요소지정
-bxs.forEach(bx => observer.observe(bx));
+                const w = bx.contentRect.width;
+                // if(w < 200){
+                    
+                // }
+                console.log(Math.floor(bx.contentRect.width) + '*' + Math.floor(bx.contentRect.height));
+            });
+            });
 
+            // 크기변화를 관찰할 요소지정
+            bxs.forEach(bx => observer.observe(bx));
     </script>
       
     

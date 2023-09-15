@@ -1,29 +1,28 @@
 @import url(./box.css);
+@import url(./set-screen.css);
 /* 디폴트 */
-* {
-    box-sizing: border-box; 
-    -webkit-box-sizing: border-box; 
-    -moz-box-sizing: border-box; 
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-}  
-button{
-    background-color: #ffffff00;
-    border: 0;
-    outline: none;
-    &:hover{
-    cursor: pointer;
-    }
-}
-input, select, textarea{
-    /* border: 0; */
-    outline: none;
-    background: none;
-}
-::-webkit-resizer {
-    display: none;
-  }
+            * {
+                box-sizing: border-box; 
+                -webkit-box-sizing: border-box; 
+                -moz-box-sizing: border-box; 
+                margin: 0;
+                padding: 0;
+                text-decoration: none;
+            }  
+            button{
+                background-color: #ffffff00;
+                border: 0;
+                outline: none;
+                &:hover{
+                cursor: pointer;
+                }
+            }
+            input, select, textarea{
+                /* border: 0; */
+                outline: none;
+                background: none;
+            }
+            ::-webkit-resizer {display: none;}
 /* ---- */
 /* 변수--------------------------------------------------------------- */
 :root{
@@ -32,11 +31,13 @@ input, select, textarea{
     --df-body-bgc: #f1f1f7;
     --df-t-shdw:0px 2px 2px rgba(0, 0, 0, 0.27);;
     /* border: var(--df-bodr); */
-    --tlb-h:25px;
-    --tlb-bgc:#1a0d7c10;
-    --tlb-c:#fff;
+    --tb-h:25px;
+    --tb-bgc:#1a0d7c10;
+    --tb-c:#fff;
     
-    
+/* 좌측 손잡이 ------------------------------- */
+    --lw-dr-width:50px;
+/* 박스 ------------------------------- */
     --bx-bgc:#fff;
     --bx-size:200px;
     --bx-set-bgc:#cfcfcf92;
@@ -62,6 +63,7 @@ input, select, textarea{
     --bx-box-shadow-inset-1: 5px 3px 10px -2px rgba(240, 240, 240, 0.796) inset;
     
     --bx-apps-bgc:#fff;
+/* 박스 ------------------------------- */
 
     --f-h:85px
 }
@@ -105,124 +107,140 @@ body{
     /* padding: 0 15px 15px 15px; */
 
 }
+/* 스크린 zindex----------------------------------------------------------- */
+.tb{position: relative;}
+main{position: relative;width: 100vw;height: 100%;
+    >.ws{position: relative;z-index: 0;top: 0;left: 0;width: 100%;height: 100%;}
+    >.bs{position: absolute;z-index: 1;top: 0;left: 0;width: 100%;height: 100%;
+        & .bx{position: absolute;}
+    }
+}
+footer{position: relative;}
+.lw{position: absolute;z-index: 1000;top: 0;left: 0;}
+.lw-back{position: absolute;z-index: 999;top: 0;left: 0;width: 100%;height: 100%;}
+.rw{position: absolute;z-index: 1000;top: 0;right: 0;}
+.rw-back{position: absolute;z-index: 999;top: 0;right: 0;width: 100%;height: 100%;}
 /* --------------------------------------------------------------- */
-.toolbar{
-    position: relative;
-    width: 100%;
-    height: var(--tlb-h);
-    padding: 0px 1px;
-    background-color: var(--tlb-bgc);
-    font-size: 0.85em;
+.lw,.lw-back{transform: translateX(calc(-100% + var(--lw-dr-width)));}
+.rw,.rw-back{transform: translateX(100%);}
+/* 좌측 박스리스트--------------------------------------------------------------- */
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    overflow: hidden;
+    .lw{
+        width:400px;
+        height: 100%;
+        background: #d7307b33;
+        & .l{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-    color: var(--tlb-c);
-    /* font-weight: bold; */
-    text-shadow: var(--df-t-shdw);
-    backdrop-filter: blur(10px);
-    >.l, >.c, >.r{
+            padding: 100px 100px 100px 50px;
+            & .stacks{
+                border: 1px solid #000;
+                height: 100%;
+                width: 100%;
+            }
+        }
+        & .r{
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: var(--lw-dr-width);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border: 1px solid #000;
+        }
+    }
+    .lw-back{
+
+    }
+/* 우측 세팅리스트--------------------------------------------------------------- */
+    .rw{
+        right: 0;
+        top: 0;
+        width:400px;
+        height: 100%;
+        background: #d7307b8b;
+    }
+/* --------------------------------------------------------------- */
+    .tb{
         width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-    }
-    >.c{justify-content: center;}
-    >.r{
-        justify-content: right;
-        display: flex;
-    }
-    >div>div{
+        height: var(--tb-h);
+        padding: 0px 1px;
+        background-color: var(--tb-bgc);
+        font-size: 0.85em;
+
         display: flex;
         align-items: center;
-        justify-content: center;
-        height: 100%;
-        text-align: center;
-        padding: 0 15px;
-        border-radius: 5px;
-        &:hover{
-            cursor: pointer;
+        justify-content: space-between;
+        overflow: hidden;
+
+        color: var(--tb-c);
+        /* font-weight: bold; */
+        text-shadow: var(--df-t-shdw);
+        backdrop-filter: blur(10px);
+        >.l, >.c, >.r{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
         }
-        &:active{
-            background-color: #ffffff2b;
+        >.c{justify-content: center;}
+        >.r{
+            justify-content: right;
+            display: flex;
         }
-        .div{height: 100%;}
+        >div>div,
+        >div>label{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 0 15px;
+            border-radius: 5px;
+            &:hover{
+                cursor: pointer;
+            }
+            &:active{
+                background-color: #ffffff2b;
+            }
+            .div{height: 100%;}
+        }
+        .add-bx-icon{
+            font-size: .85em;
+            color: var(--tb-c);
+        }
     }
-    .add-bx-icon{
-        font-size: .85em;
-        color: var(--tlb-c);
-    }
-}
-footer{
-position: relative;
-bottom: 0;
-left: 0;
-width: 100%;
-height: 85px;
-/* padding: 15px; */
-border: 1px solid #000;
-}
+    footer{
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 85px;
+    /* padding: 15px; */
+    border: 1px solid #000;
+    }   
 /* 앱, 박스--------------------------------------------------------------- */
 /* transition: margin .5s ease-in-out; */
 main{
-    position: relative;
-    width: 100vw;
-    height: 100%;
-    height: calc(100vh - var(--tlb-h) - var(--f-h));
-    overflow-x: hidden;
+    height: calc(100vh - var(--tb-h) - var(--f-h));
+    /* overflow-x: hidden; */
     overflow-y: visible;
     background: #4ee807d8;
 }
 /* 위젯 스크린--------------------------------------------------------------- */
-.w-screen{
-    z-index: 0;
-    position: relative;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+.ws{
     background: #5730d78b;
 }
-/* 좌측 박스리스트--------------------------------------------------------------- */
-.l-screen{
-    z-index: 1000;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width:400px;
-    height: 100%;
-    background: #d7307b8b;
-    & .l{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
 
-        padding: 100px 100px 100px 50px;
-        & .stacks{
-            border: 1px solid #000;
-            height: 100%;
-            width: 100%;
-        }
-    }
-    & .r{
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 50px;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        border: 1px solid #000;
-    }
-}
 /* 디폴트2 */
 .dpnone{
     display: none;
