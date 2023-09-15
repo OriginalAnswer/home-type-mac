@@ -3,15 +3,15 @@ let bxArr = [];//전체 박스 정보저장
 
 function newBox() {
     const Length = bxArr.length;
-    const z = 10 + Length + 1;
+    const z = Length + 1;
 
     const nbxObj = {
         id: Date.now(),
         name: 'title',
         statu: 'respone',
         zindex: z,
-        width: 250,
-        height: 250,
+        width: 300,
+        height: 300,
     }; 
     bxArr.push(nbxObj);
     
@@ -86,4 +86,15 @@ function addNewBox(obj) {
         </section>
     `;
     main.appendChild(bx);
+    const bxObj = {
+        id:ID,
+        link:0,
+        tast:0,
+        text:1,
+        linkContents:[],
+        taskContents:[],
+        textContents: ""
+    }
+    localStorage.setItem(`${ID}`,JSON.stringify(bxObj));
+    
 }
