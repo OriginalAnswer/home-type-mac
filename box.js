@@ -1,6 +1,5 @@
-// const btnNewB = document.querySelector('#btn-new-bx');
-
-let bxArr = [];
+// -- 박스 만들기
+let bxArr = [];//전체 박스 정보저장
 
 function newBox() {
     const Length = bxArr.length;
@@ -31,16 +30,21 @@ function addNewBox(obj) {
     const ID = obj.id;
     const bxw = obj.width;
     const bxh = obj.height;
+
     bx.id = `bx-${obj.id}`;
     bx.classList.add('bx');
     bx.dataset.group = obj.id;
     bx.style.zindex = obj.z;
+
     bx.innerHTML = `
         <input type="checkbox" id="door-${ID}" class="bx-set-door dpnone">
         <section class="bx-set" id="set-${ID}">
             <div class="bx-set-main">
                 <div class="bx-set-title">
-                    <div class="title">제목</div>
+                    <div class="title">
+                    제목
+                    <input type="checkbox" id="input-onoff-title-id" class="">
+                    </div>
                 </div>
                 <div class="bx-set-c">
                     <div class="title">색상</div>
@@ -50,13 +54,22 @@ function addNewBox(obj) {
                 </div>
                 <div class="bx-set-apps">
                     <div class="title">앱 목록</div>
+                    <label for="input-onoff-link-id">
+                        <label class="tgl-btn" for="input-onoff-link-id">link<input type="checkbox" id="input-onoff-link-id" class=""></label>
+                    </label>
+                    <label for="input-onoff-task-id">
+                        <label class="tgl-btn" for="input-onoff-task-id">task<input type="checkbox" id="input-onoff-task-id" class=""></label>
+                    </label>
+                    <label for="input-onoff-text-id">
+                        <label class="tgl-btn" for="input-onoff-text-id">text<input type="checkbox" id="input-onoff-text-id" class=""></label>
+                    </label>
                 </div>
             </div>
         </section>
         <section class="bx-ctrl" id="ctrl-${ID}">
             <button class="tool bx-x" onclick=""></button>
             <button class="tool bx-m"></button>
-            <button class="tool bx-f" onclick="bxF()"></button>
+            <button class="tool bx-f" onclick="bxFull()"></button>
         </section>
         <section class="bx-main" id="main-${ID}">
             <div class="bx-hdr" data-group="${ID}" id="hdr-${ID}">

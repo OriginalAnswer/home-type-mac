@@ -1,14 +1,12 @@
 
 .bx{
-    z-index: 10;
     position: absolute;
     top: 0;
     left: 0;
     width: var(--bx-size);
     height: var(--bx-h);
     border: var(--bx-bodr);
-    border-radius: var(--bx-bodr-r);
-    /* background-color: var(--bx-bgc); */
+    border-radius: var(--bx-bodr-r) !important;
     overflow: hidden;
     color: var(--df-c);
     box-shadow: var(--bx-box-shadow-1);
