@@ -37,7 +37,7 @@ function addNewBox(obj) {
     bx.id = `bx${obj.id}`;
     bx.classList.add('bx');
     bx.dataset.group = obj.id;
-    bx.setAttribute('style',`position:absolute;z-index:${z};top:${(n*10)+10}px;left:${(n*10)+10}px; width:${bxw}px; height:${bxh}px`)
+    bx.setAttribute('style',`position:absolute;z-index:${z};top:${n*20+30}px;left:${n*15+30}px; width:${bxw}px; height:${bxh}px`)
 
     bx.innerHTML = `
         <input type="checkbox" id="door${ID}" class="bx-set-door dpnone">
@@ -89,7 +89,7 @@ function addNewBox(obj) {
                 <div class="app-link dpnone" id="link${ID}"></div>
                 <div class="app-task dpnone" id="task${ID}"></div>
                 <div class="bx-txt">
-                    <textarea class="app-txt" id="txt${ID}"></textarea>
+                    <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})"></textarea>
                 </div>
                 <div class="tags dpnone" id="tags${ID}"></div>
             </div>
@@ -101,9 +101,9 @@ function addNewBox(obj) {
         link:0,
         tast:0,
         text:1,
-        linkContents:[],
-        taskContents:[],
-        textContents: ""
+        linkContent:[],
+        taskContent:[],
+        textContent: ""
     }
     localStorage.setItem(`${ID}`,JSON.stringify(bxObj));   
     // setZ(ID,obj.z);
