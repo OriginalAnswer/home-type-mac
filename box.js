@@ -3,16 +3,18 @@ let bxArr = [];//전체 박스 정보저장
 
 function newBox() {
     const Length = bxArr.length;
-    const z = Length + 1;
+    const z = Length+1;
 
     const nbxObj = {
         id: Date.now(),
+        num: Length,
         name: 'title',
         statu: 'respone',
         zindex: z,
         width: 300,
         height: 200,
-        num: Length,
+        top: Length*20+30,
+        left: Length*15+30,
     }; 
     bxArr.push(nbxObj);
     
@@ -20,84 +22,83 @@ function newBox() {
     saveBxArr(); // appsArr 저장
 }
 
-function saveBxArr() {
-    localStorage.setItem('bxArr', JSON.stringify(bxArr));
-}
-
+function saveBxArr() {localStorage.setItem('bxArr', JSON.stringify(bxArr));}
 
 function addNewBox(obj) {
     const bs = document.querySelector('.bs');
     const ID = obj.id;
     const bx = document.createElement('div');
-    const bxw = obj.width;
-    const bxh = obj.height;
+    const w = obj.width;
+    const h = obj.height;
     const z = obj.zindex;
     const n = obj.num;
+    const top = obj.top;
+    const left = obj.left;
 
     bx.id = `bx${obj.id}`;
     bx.classList.add('bx');
     bx.dataset.group = obj.id;
-    bx.setAttribute('style',`position:absolute;z-index:${z};top:${n*20+30}px;left:${n*15+30}px; width:${bxw}px; height:${bxh}px`)
+    bx.setAttribute('style',`position:absolute;z-index:${z};top:${top}px;left:${left}px; width:${w}px; height:${h}px`)
 
     bx.innerHTML = `
-        <input type="checkbox" id="door${ID}" class="bx-set-door dpnone">
-        <section class="bx-set" id="set${ID}">
-            <div class="bx-set-main">
-                <div class="bx-set-title">
-                    <div class="title">
-                    제목
-                    <input type="checkbox" id="input-onoff-title-id" class="">
-                    </div>
-                </div>
-                <div class="bx-set-c">
-                    <div class="title">색상</div>
-                </div>
-                <div class="bx-set-ㄹ">
-                    <div class="title">글자</div>
-                </div>
-                <div class="bx-set-apps">
-                    <div class="title">앱 목록</div>
-                    <label for="input-onoff-link-id">
-                        <label class="tgl-btn" for="input-onoff-link-id">link<input type="checkbox" id="input-onoff-link-id" class=""></label>
-                    </label>
-                    <label for="input-onoff-task-id">
-                        <label class="tgl-btn" for="input-onoff-task-id">task<input type="checkbox" id="input-onoff-task-id" class=""></label>
-                    </label>
-                    <label for="input-onoff-text-id">
-                        <label class="tgl-btn" for="input-onoff-text-id">text<input type="checkbox" id="input-onoff-text-id" class=""></label>
-                    </label>
+    <input type="checkbox" id="door${ID}" class="bx-set-door dpnone">
+    <section class="bx-set" id="set${ID}">
+        <div class="bx-set-main">
+            <div class="bx-set-title">
+                <div class="title">
+                제목
+                <input type="checkbox" id="input-onoff-title-id" class="">
                 </div>
             </div>
-        </section>
-        <section class="bx-ctrl" id="ctrl-${ID}">
-            <button class="tool bx-x" onclick=""></button>
-            <button class="tool bx-m"></button>
-            <button class="tool bx-f" onclick="bxFull()"></button>
-        </section>
-        <label for="door${ID}"  class="bx-door">
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-        </label>
-        <section class="bx-view" id="view${ID}">
-            <div class="bx-hdr" data-group="${ID}" id="hdr${ID}" onclick="dragBx()">
-                <div class="c">
-                    <label for="title${ID}" class="bx-title"></label>
-                    <input type="text" class="bx-title-input dpnone" id="title${ID}">
-                </div>
+            <div class="bx-set-c">
+                <div class="title">색상</div>
+            </div>
+            <div class="bx-set-ㄹ">
+                <div class="title">글자</div>
+            </div>
+            <div class="bx-set-apps">
+                <div class="title">앱 목록</div>
+                <label for="input-onoff-link-id">
+                    <label class="tgl-btn" for="input-onoff-link-id">link<input type="checkbox" id="input-onoff-link-id" class=""></label>
+                </label>
+                <label for="input-onoff-task-id">
+                    <label class="tgl-btn" for="input-onoff-task-id">task<input type="checkbox" id="input-onoff-task-id" class=""></label>
+                </label>
+                <label for="input-onoff-text-id">
+                    <label class="tgl-btn" for="input-onoff-text-id">text<input type="checkbox" id="input-onoff-text-id" class=""></label>
+                </label>
+            </div>
+        </div>
+    </section>
+    <div class="bx-ctrl" id="ctrl${ID}">
+        <button class="tool bx-x" onclick=""></button>
+        <button class="tool bx-m"></button>
+        <button class="tool bx-f" onclick="bxFull()"></button>
+    </div>
+    <div class="bx-bar" id="bar${ID}" data-group="${ID}" onclick="TopZ(this.dataset.group)"></div>
+    <label for="door${ID}" class="bx-door">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </label>
+    <section class="bx-view" id="view${ID}">
+        <div class="bx-hdr" data-group="${ID}" id="hdr${ID}" onclick="dragBx()">
+            <div class="c">
+                <label for="title${ID}" class="bx-title"></label>
+                <input type="text" class="bx-title-input dpnone" id="title${ID}">
+            </div>
 
+        </div>
+        <div class="bx-main" id="main${ID}">
+            <div class="app-link dpnone" id="link${ID}"></div>
+            <div class="app-task dpnone" id="task${ID}"></div>
+            <div class="bx-txt">
+                <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})"></textarea>
             </div>
-            <div class="bx-main" id="main${ID}">
-                <div class="app-link dpnone" id="link${ID}"></div>
-                <div class="app-task dpnone" id="task${ID}"></div>
-                <div class="bx-txt">
-                    <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})"></textarea>
-                </div>
-                <div class="tags dpnone" id="tags${ID}"></div>
-            </div>
-        </section>
+            <div class="tags dpnone" id="tags${ID}"></div>
+        </div>
+    </section>
     `;
     bs.appendChild(bx);
     const bxObj = {
-        id:ID,
         link:0,
         tast:0,
         text:1,
@@ -106,9 +107,108 @@ function addNewBox(obj) {
         textContent: ""
     }
     localStorage.setItem(`${ID}`,JSON.stringify(bxObj));   
-    // setZ(ID,obj.z);
 }
-// function setZ(ID,z){
-//     const bx = document.getElementById(`bx${ID}`);
-//     bx.style.zIndex = String(z);
-// }
+
+
+// 박스 로드, 프린트
+function printBx(obj){
+    const bs = document.querySelector('.bs');
+    const ID = obj.id;
+    const bx = document.createElement('div');
+    const w = obj.width;
+    const h = obj.height;
+    const z = obj.zindex;
+    const n = obj.num;
+    const top = obj.top;
+    const left = obj.left;
+
+    bx.id = `bx${ID}`;
+    bx.classList.add('bx');
+    bx.dataset.group = ID;
+    bx.setAttribute('style',`position:absolute;z-index:${z};top:${top}px;left:${left}px; width:${w}px; height:${h}px`)
+
+    const localBX = localStorage.getItem(ID);
+    let BX = JSON.parse(localBX);
+    const txt = BX.textContent;
+    const linkArr = BX.linkContent;
+    const taskArr = BX.taskContent;
+
+    bx.innerHTML = `
+    <input type="checkbox" id="door${ID}" class="bx-set-door dpnone">
+    <section class="bx-set" id="set${ID}">
+        <div class="bx-set-main">
+            <div class="bx-set-title">
+                <div class="title">
+                제목
+                <input type="checkbox" id="input-onoff-title-id" class="">
+                </div>
+            </div>
+            <div class="bx-set-c">
+                <div class="title">색상</div>
+            </div>
+            <div class="bx-set-ㄹ">
+                <div class="title">글자</div>
+            </div>
+            <div class="bx-set-apps">
+                <div class="title">앱 목록</div>
+                <label for="input-onoff-link-id">
+                    <label class="tgl-btn" for="input-onoff-link-id">link<input type="checkbox" id="input-onoff-link-id" class=""></label>
+                </label>
+                <label for="input-onoff-task-id">
+                    <label class="tgl-btn" for="input-onoff-task-id">task<input type="checkbox" id="input-onoff-task-id" class=""></label>
+                </label>
+                <label for="input-onoff-text-id">
+                    <label class="tgl-btn" for="input-onoff-text-id">text<input type="checkbox" id="input-onoff-text-id" class=""></label>
+                </label>
+            </div>
+        </div>
+    </section>
+    <section class="bx-ctrl" id="ctrl${ID}">
+        <button class="tool bx-x" onclick=""></button>
+        <button class="tool bx-m"></button>
+        <button class="tool bx-f" onclick="bxFull()"></button>
+    </section>
+    <div class="bx-bar" id="bar${ID}" data-group="${ID}" onclick="TopZ(this.dataset.group);"></div>
+    <label for="door${ID}" class="bx-door">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </label>
+    <section class="bx-view" id="view${ID}">
+        <div class="bx-hdr" data-group="${ID}" id="hdr${ID}" onclick="dragBx()">
+            <div class="c">
+                <label for="title${ID}" class="bx-title"></label>
+                <input type="text" class="bx-title-input dpnone" id="title${ID}">
+            </div>
+
+        </div>
+        <div class="bx-main" id="main${ID}">
+            <div class="app-link dpnone" id="link${ID}"></div>
+            <div class="app-task dpnone" id="task${ID}"></div>
+            <div class="bx-txt">
+                <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})"></textarea>
+            </div>
+            <div class="tags dpnone" id="tags${ID}"></div>
+        </div>
+    </section>
+    `;
+
+
+    bs.appendChild(bx);// bs안에 bx프린트
+    bxTextResize(ID);
+}
+function bxTextResize(ID) {
+    let textarea = document.getElementById(`txt${ID}`);
+    let scHeight = textarea.scrollHeight;
+    // let borderTop = parseInt(style.borderTop);
+    textarea.style.height = scHeight + "px";
+}
+
+// 페이지 로드 시 복원
+function loadBox() {
+    const localBxArr = localStorage.getItem('bxArr');
+    if (localBxArr) {
+        bxArr = JSON.parse(localBxArr);
+        bxArr.forEach(obj => printBx(obj));
+        console.log(bxArr);
+    }
+}
+loadBox()

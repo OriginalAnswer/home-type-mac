@@ -16,13 +16,17 @@
     min-height: var(--bx-hdr-h);
     max-width: 100%;
     max-height: 100%;
-
+    > .bx-bar{
+        position: absolute;z-index: 1;
+        top: 0;left: 0;
+        width: 100%;height: var(--bx-hdr-h);
+        cursor: crosshair;
+    }
     > .bx-ctrl{
         position: absolute;
-        z-index: 1;
-        top: 0;
+        z-index: 2;
+        top: calc(var(--bx-hdr-h)/2); transform: translateY(-50%);
         left: 10px;
-        height: var(--bx-hdr-h);
         min-width: var(--bx-ctrl-width);
 
         display: flex;
@@ -44,20 +48,15 @@
         .bx-f{background-color: #27c840;}
     }
     > .bx-door{
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        right: 12px;
-        width: var(--bx-tool-size);
-        height: var(--bx-hdr-h);
-        /* max-width: 45px; */
+        position: absolute; z-index: 2;
+        top: calc(var(--bx-hdr-h)/2); transform: translateY(-50%); right: 12px;
+        width: var(--bx-tool-size); height: var(--bx-hdr-h);
         display: flex;
         justify-content: right;
         align-items: center;
+        &:hover{cursor: pointer;}
         > i{
-            background-color: var(--bx-hdr-bgc);
             color: var(--bx-hdr-c);
-            &:hover{cursor: pointer;}
         }
     }
     > .bx-set{
@@ -100,8 +99,7 @@
         opacity: 1;
     }
     .bx-set-door:checked ~ .bx-view{
-        /* margin-left: var(--bx-set-width); */
-        margin-left: 100%;
+        margin-left: 100% ;        
     }
 
     > .bx-view{
@@ -140,6 +138,7 @@
         .bx-main{
             height: calc(100% - var(--bx-hdr-h));
             background-color: var(--bx-apps-bgc);
+            overflow: hidden;
             .bx-txt,.app-link,.app-task{
                 width: 100%;
                 display: flex;
@@ -169,9 +168,6 @@
         font-weight: bold;
         font-size: .9em;
     }
-    /* .bx-set-door:checked ~ .bx-main .bx-hdr .c{
-        margin-left: 0;
-    } */
 }
 /* 박스 세팅 토글 */
 
