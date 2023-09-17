@@ -30,7 +30,7 @@
     --df-c:#000;
     --df-bodr: 1px #000 solid;
     --df-body-bgc: #f1f1f7;
-    --df-t-shdw:0px 2px 2px rgba(0, 0, 0, 0.27);;
+    --df-t-shdw:0px 2px 2px rgba(0, 0, 0, 0.27);
     --tb-h:25px;
     --tb-bgc:#1a0d7c10;
     --tb-c:#fff;
@@ -58,11 +58,11 @@
     --bx-tool-bodr-r: 50px;
     --bx-h: calc(var(--bx-size) + var(--bx-hdr-h));
     --bx-bodr-r:12px;
-    --bx-bodr-c:rgba(217, 217, 217, 0.781);
-    --bx-bodr:1px solid var(var(--bx-bodr-c));
+    --bx-bodr-c:rgba(217, 217, 217, 0.212);
+    --bx-bodr:1px solid var(--bx-bodr-c);
     
-    --bx-box-shadow-1: 0 5px 10px 0 rgba(203, 203, 203, 0.283);
-    --bx-box-shadow-inset-1: 5px 3px 10px -2px rgba(240, 240, 240, 0.796) inset;
+    --bx-box-shdw-1: 0 5px 10px 0 rgba(203, 203, 203, 0.283);
+    --bx-box-shdw-inset-1: 5px 3px 10px -2px rgba(240, 240, 240, 0.796) inset;
     
     --bx-apps-bgc:#fff;
 /* 박스 ------------------------------- */
@@ -84,7 +84,9 @@
         --bx-set-bodr: 1px soild rgba(0, 0, 0, 0.781);
         --bx-set-c:#ffffff;
         
-        --bx-box-shadow-1: 0 5px 10px 0 rgba(0, 0, 0, 0);
+        --bx-bodr-c:rgba(0, 0, 0, 0.523);
+        /* --bx-box-shdw-1: 0 5px 10px 0 rgba(33, 32, 32, 0.283); */
+        --bx-box-shdw-1: 0px 2px 2px rgba(0, 0, 0, 0.27);
 
         --bx-apps-bgc:#28272f;
     }
@@ -104,7 +106,7 @@ body{
     height: 100dvh;
     position: relative;
     background-color: var(--df-body-bgc);
-    background-image: url(./1.jpg);
+    background-image: url(./macOS-Graphic-Dark.png);
     background-position: center;
     background-size: cover;
     /* padding: 0 15px 15px 15px; */
@@ -131,7 +133,7 @@ footer{position: relative;}
         & .stacks{
             width: 100%;height: 100%;
             border-radius: 100px;
-            background-color: #00000000; backdrop-filter: blur(2px);
+            background-color: #00000000; backdrop-filter: blur(100px);
         }
     }}
     .lw-door{position: absolute;top: calc(50% - var(--lw-dr-size)/2);right: 0;width: var(--lw-dr-size);height: var(--lw-dr-size);
@@ -139,7 +141,7 @@ footer{position: relative;}
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 0px solid #000; border-radius: 50%;
+            border: 0; border-radius: 50%;
             background-color: #00000000;
             color: #fff;}
 .rw-back{position: absolute;z-index: 101;top: 0;right: 0;width: 100%;height: 100%;}
@@ -155,7 +157,7 @@ footer{position: relative;}
 #rw-door:checked ~ .rw-back{transform: translateX(0%);will-change: transform;} 
 /* --------------------------------------------------------------- */
 .lw-back,.rw-back{background-color: #00000000;}
-.lw,.rw{background-color: #00000000; backdrop-filter: blur(2px);
+.lw,.rw{background-color: #00000000; backdrop-filter: blur(3px);
     width:400px;height: 100%;}
 /* 좌측 박스리스트--------------------------------------------------------------- */
 
@@ -226,7 +228,6 @@ footer{position: relative;}
 /* transition: margin .5s ease-in-out; */
 
 /* 위젯 스크린--------------------------------------------------------------- */
-.ws{}
 
 /* 디폴트2 */
 .dpnone{display: none;}

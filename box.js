@@ -1,10 +1,10 @@
+const bs = document.querySelector('.bs');
 // -- 박스 만들기
 let bxArr = [];//전체 박스 정보저장
 
 function newBox() {
     const Length = bxArr.length;
     const z = Length+1;
-
     const nbxObj = {
         id: Date.now(),
         num: Length,
@@ -13,19 +13,16 @@ function newBox() {
         zindex: z,
         width: 300,
         height: 200,
-        top: Length*20+30,
+        top: Length*30+30,
         left: Length*15+30,
     }; 
     bxArr.push(nbxObj);
-    
     addNewBox(nbxObj); // 새로운 앱 요소 생성 및 추가
     saveBxArr(); // appsArr 저장
 }
 
 function saveBxArr() {localStorage.setItem('bxArr', JSON.stringify(bxArr));}
-
 function addNewBox(obj) {
-    const bs = document.querySelector('.bs');
     const ID = obj.id;
     const bx = document.createElement('div');
     const w = obj.width;
@@ -70,12 +67,12 @@ function addNewBox(obj) {
             </div>
         </div>
     </section>
-    <div class="bx-ctrl" id="ctrl${ID}">
+    <section class="bx-ctrl" id="ctrl${ID}">
         <button class="tool bx-x" onclick=""></button>
         <button class="tool bx-m"></button>
-        <button class="tool bx-f" onclick="bxFull()"></button>
-    </div>
-    <div class="bx-bar" id="bar${ID}" data-group="${ID}" onclick="TopZ(this.dataset.group)"></div>
+        <button class="tool bx-f" onclick="bxF(${ID})"></button>
+    </section>
+    <div class="bx-bar" id="bar${ID}" data-group="${ID}" ></div>
     <label for="door${ID}" class="bx-door">
         <i class="fa-solid fa-ellipsis-vertical"></i>
     </label>
@@ -87,14 +84,14 @@ function addNewBox(obj) {
             </div>
 
         </div>
-        <div class="bx-main" id="main${ID}">
+        <label for="txt${ID}" class="bx-main" id="main${ID}">
             <div class="app-link dpnone" id="link${ID}"></div>
             <div class="app-task dpnone" id="task${ID}"></div>
             <div class="bx-txt">
                 <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})"></textarea>
             </div>
             <div class="tags dpnone" id="tags${ID}"></div>
-        </div>
+        </label>
     </section>
     `;
     bs.appendChild(bx);
@@ -107,12 +104,26 @@ function addNewBox(obj) {
         textContent: ""
     }
     localStorage.setItem(`${ID}`,JSON.stringify(bxObj));   
+
+
+    bx.addEventListener('click', function() {
+        let boxes = document.querySelectorAll('.bx');
+        const currentZIndex = parseInt(getComputedStyle(this).zIndex);
+        boxes.forEach(function(b) {
+            if (b !== bx) {
+                const zIndex = parseInt(getComputedStyle(b).zIndex);
+                const c = b.querySelector('.bx-set-door');
+                c.checked = false;
+                if (zIndex > currentZIndex) {
+                    b.style.zIndex = (zIndex - 1).toString();
+                }
+            }
+        });
+        bx.style.zIndex = (boxes.length).toString();
+    });
 }
-
-
 // 박스 로드, 프린트
 function printBx(obj){
-    const bs = document.querySelector('.bs');
     const ID = obj.id;
     const bx = document.createElement('div');
     const w = obj.width;
@@ -166,9 +177,9 @@ function printBx(obj){
     <section class="bx-ctrl" id="ctrl${ID}">
         <button class="tool bx-x" onclick=""></button>
         <button class="tool bx-m"></button>
-        <button class="tool bx-f" onclick="bxFull()"></button>
+        <button class="tool bx-f" onclick="bxF(${ID})"></button>
     </section>
-    <div class="bx-bar" id="bar${ID}" data-group="${ID}" onclick="TopZ(this.dataset.group);"></div>
+    <div class="bx-bar" id="bar${ID}" data-group="${ID}" ></div>
     <label for="door${ID}" class="bx-door">
         <i class="fa-solid fa-ellipsis-vertical"></i>
     </label>
@@ -180,28 +191,27 @@ function printBx(obj){
             </div>
 
         </div>
-        <div class="bx-main" id="main${ID}">
+        <label for="txt${ID}" class="bx-main" id="main${ID}">
             <div class="app-link dpnone" id="link${ID}"></div>
             <div class="app-task dpnone" id="task${ID}"></div>
             <div class="bx-txt">
-                <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})"></textarea>
+                <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})">${txt}</textarea>
             </div>
             <div class="tags dpnone" id="tags${ID}"></div>
-        </div>
+        </label>
     </section>
     `;
 
 
     bs.appendChild(bx);// bs안에 bx프린트
-    bxTextResize(ID);
+    TextResize(ID);
 }
-function bxTextResize(ID) {
+function TextResize(ID) {
     let textarea = document.getElementById(`txt${ID}`);
     let scHeight = textarea.scrollHeight;
     // let borderTop = parseInt(style.borderTop);
     textarea.style.height = scHeight + "px";
 }
-
 // 페이지 로드 시 복원
 function loadBox() {
     const localBxArr = localStorage.getItem('bxArr');
@@ -212,3 +222,4 @@ function loadBox() {
     }
 }
 loadBox()
+console.log(bxArr);

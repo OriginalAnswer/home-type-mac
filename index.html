@@ -7,7 +7,7 @@
     <title>Mac</title>
 </head>
 <body class="preload">
-<!-- 상단 툴바 -------------------------------------------------- -->
+<!-- 상단 툴바 ---------------------- -->
 <div class="tb">
     <div class="l">
         <div><div class="top-time"></div></div>
@@ -22,7 +22,7 @@
         <label for="rw-door">set</label>
     </div>
 </div>
-<!-- 좌우 히든 윈도우 -------------------------------------------------- -->
+<!-- 좌우 히든 윈도우 ---------------------- -->
 <input type="checkbox" id="lw-door" class="dpnone">
 <input type="checkbox" id="rw-door" class="dpnone">
 <label class="lw-back" for="lw-door"></label>
@@ -35,14 +35,14 @@
 
 <label class="rw" for="rw-door"></label>
 <label class="rw-back" for="rw-door"></label>
-<!-- 메인 앱 화면 -------------------------------------------------- -->
+<!-- 메인 앱 화면 ---------------------- -->
 <main id="main">
     <div class="ws"></div>
-    <div class="bs"></div>
+    <div class="bs" onclick="bsClick()"></div>
 </main>
 <!-- <footer></footer> -->
 
-<!-- 스크립트 -------------------------------------------------- -->
+<!-- 스크립트 ---------------------- -->
 
 <script>
     // 초기 로드 트렌지션 해제
@@ -58,55 +58,3 @@
 <script src="https://kit.fontawesome.com/e4704dcbbd.js" crossorigin="anonymous"></script>
 </body>
 </html>
-<!-- <div class="bx" id="1234567890" data-group="1234567890" style="z-index: 10;" onfocus="bxToTop()">
-        <input type="checkbox" id="bx-12-door" class="bx-set-door dpnone">
-        <input type="checkbox" id="input-onoff-link-id" class="dpnone">
-        <section class="bx-set">
-            <div class="bx-set-main">
-                <div class="bx-set-title">
-                    <div class="title">제목 <input type="checkbox" id="input-onoff-title-id" class=""></div>
-                    
-                </div>
-                <div class="bx-set-c">
-                    <div class="title">색상</div>
-                </div>
-                <div class="bx-set-ㄹ">
-                    <div class="title">글자</div>
-                </div>
-                <div class="bx-set-apps">
-                    <div class="title">앱 목록</div>
-                    <label for="input-onoff-link-id">
-                        <label class="tgl-btn" for="input-onoff-link-id">link<input type="checkbox" id="input-onoff-link-id" class=""></label>
-                        
-                    </label>
-                    <label for="input-onoff-task-id">
-                        <label class="tgl-btn" for="input-onoff-task-id">task<input type="checkbox" id="input-onoff-task-id" class=""></label>
-                        
-                    </label>
-                    <label for="input-onoff-text-id">
-                        <label class="tgl-btn" for="input-onoff-text-id">text<input type="checkbox" id="input-onoff-text-id" class=""></label>
-                        
-                    </label>
-                </div>
-            </div>
-        </section>
-        <section class="bx-ctrl">
-            <button class="tool bx-x" onclick=""></button>
-            <button class="tool bx-m"></button>
-            <button class="tool bx-f" onclick="bxF()"></button>
-        </section>
-        <section class="bx-main">
-            <div class="bx-hdr" id="hi" data-group="1234567890">
-                <div class="c">
-                    <label for="title-123" class="bx-title">test</label>
-                    <input type="text" class="bx-title-input dpnone" id="title-123" value="hi">
-                </div>
-
-                <label for="bx-12-door"  class="r">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </label>
-            </div>
-            <div class="bx-apps"></div>
-        </section>
-    </div>
--->

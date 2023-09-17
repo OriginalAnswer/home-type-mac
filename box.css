@@ -7,12 +7,12 @@
     height: var(--bx-h);
     border: var(--bx-bodr);
     border-radius: var(--bx-bodr-r) !important;
+    box-shadow: var(--bx-box-shdw-1);
     overflow: hidden;
     color: var(--df-c);
-    box-shadow: var(--bx-box-shadow-1);
     transition: transform 0.2s;
     resize: both;
-    min-width: 175px;
+    min-width: 275px;
     min-height: var(--bx-hdr-h);
     max-width: 100%;
     max-height: 100%;
@@ -99,16 +99,14 @@
         opacity: 1;
     }
     .bx-set-door:checked ~ .bx-view{
-        margin-left: 100% ;        
+        margin-left: clamp(200px, 40%, 350px) ;        
     }
 
     > .bx-view{
         position: relative;
         height: 100%;
         margin-left: 0;
-        /* background-color: var(--bx-bgc); */
         transition: margin .5s ease-in-out;
-        /* background-color: #000000; */
         overflow: hidden;
         > .bx-hdr{
             position: relative;
@@ -117,25 +115,19 @@
             width: 100%;
             padding: 10px;
             
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex;justify-content: center;align-items: center;
             
             background-color: var(--bx-hdr-bgc);
             color: var(--bx-hdr-c);
-            cursor: pointer;
             .c{
-                /* margin-right: auto; */
-                /* margin-left: calc(auto + var(--bx-ctrl-width)); */
                 margin: auto;
-                transition: margin .5s ease-in-out;
-                
                 text-align: center;
                 font-weight: bold;
                 font-size: .9em;
             }
         }
         .bx-main{
+            display: block;
             height: calc(100% - var(--bx-hdr-h));
             background-color: var(--bx-apps-bgc);
             overflow: hidden;

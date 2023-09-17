@@ -1,21 +1,29 @@
-//box to the top
-function TopZ(ID){
-    const bx = document.getElementById(`bx${ID}`);
-    console.log(bx.style.zIndex);
-    // bxArr
+//바깥 클릭시 박스 셋 보기 전체 해제
+function bsClick(){
+    const bxs = event.target.querySelectorAll(".bx");
+    bxs.forEach(function(bx){bx.querySelector('.bx-set-door').checked = false;})
 }
+//박스 최상위, 셋 보기 헤제
+document.addEventListener('DOMContentLoaded', function() {
+    let boxes = document.querySelectorAll('.bx');
 
-//펑션 .bx-bar => .bx-bar for each
-function bxCtrl(){
-    let all =document.querySelectorAll('.bx-bar');
-    
-    all.forEach(bar => {
-        bar.addEventListener('mousedown', aa);
-        bar.addEventListener('touchstart', aa);
-    })
-
-}
-
+    boxes.forEach(function(box) {
+      box.addEventListener('click', function() {
+        const currentZIndex = parseInt(getComputedStyle(this).zIndex);// 클릭한 박스의 현재 z-index 값을 가져옵니다.
+        boxes.forEach(function(b) {// 모든 박스의 z-index를 재정렬합니다.
+          if (b !== box) {
+            const zIndex = parseInt(getComputedStyle(b).zIndex);
+            const c = b.querySelector('.bx-set-door');//set체크박스
+            c.checked = false;//set체크박스 해제
+            if (zIndex > currentZIndex) {
+              b.style.zIndex = (zIndex - 1).toString();
+            }
+          }
+        });
+        this.style.zIndex = (boxes.length).toString();// 클릭한 박스의 z-index를 가장 큰 값으로 설정합니다.
+      });
+    });
+});
 
 
 
@@ -27,35 +35,31 @@ function bxCtrl(){
 
 
 //박스 사이징
-function bxF(){
-    const ID = event.target.parentElement.parentElement.dataset.group;
-    const bx = document.getElementById(ID);
-    bx.style.top = '0';
-    bx.style.left = '0';
-    bx.style.width = '100%';
-    bx.style.height = '100%';
+function bxF(ID){
+    
+    const bx = document.getElementById("bx"+ID);
+    bx.style.top = '30px';
+    bx.style.left = '30px';
+    bx.style.width = 'calc(100% - 60px)';
+    bx.style.height = 'calc(100% - 30px)';
     bx.style.transition = 'all .5s ease-in-out';
+    console.log(bxArr);
 };
 
-const bxs = document.querySelectorAll('.bx');
+let bxs = document.querySelectorAll('.bx');
 
 const observer = new ResizeObserver((bx) => {
-bx.forEach((bx) => {
-    const bxSet = document.getElementById(bx.target.id).querySelector('.bx-set');
-    console.log(Math.floor(bx.contentRect.width) + '*' + Math.floor(bx.contentRect.height));
-    let w = parseInt(bx.contentRect.width);
-    if(350 > w){
-
-    }
-});
+    bx.forEach((bx) => {
+        console.log(bxArr);
+        // const bxSet = document.getElementById(bx.target.dataset.group).querySelector('.bx-set');
+        console.log(Math.floor(bx.contentRect.width) + '*' + Math.floor(bx.contentRect.height));
+        let w = parseInt(bx.contentRect.width);
+        let h = parseInt(bx.contentRect.height);
+    });
 });
 
 // 크기변화를 관찰할 요소지정
 bxs.forEach(bx => observer.observe(bx));
-
-
-
-
 
 
 
