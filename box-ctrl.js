@@ -42,9 +42,11 @@ const bxs = document.querySelectorAll('.bx');
 const observer = new ResizeObserver((bx) => {
 bx.forEach((bx) => {
     const bxSet = document.getElementById(bx.target.id).querySelector('.bx-set');
-    let w = parseInt(bx.contentRect.width);
-    
     console.log(Math.floor(bx.contentRect.width) + '*' + Math.floor(bx.contentRect.height));
+    let w = parseInt(bx.contentRect.width);
+    if(350 > w){
+
+    }
 });
 });
 
