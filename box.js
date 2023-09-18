@@ -1,4 +1,5 @@
 const bs = document.querySelector('.bs');
+let currentBoxResizeObserver;
 // -- 박스 만들기
 let bxArr = [];//전체 박스 정보저장
 
@@ -9,7 +10,7 @@ function newBox() {
         id: Date.now(),
         num: Length,
         name: 'title',
-        statu: 'respone',
+        statu: 'response',
         zindex: z,
         width: 300,
         height: 200,
@@ -31,6 +32,7 @@ function addNewBox(obj) {
     const n = obj.num;
     const top = obj.top;
     const left = obj.left;
+    const statu = obj.statu;
 
     bx.id = `bx${obj.id}`;
     bx.classList.add('bx');
@@ -50,7 +52,7 @@ function addNewBox(obj) {
             <div class="bx-set-c">
                 <div class="title">색상</div>
             </div>
-            <div class="bx-set-ㄹ">
+            <div class="bx-set-font">
                 <div class="title">글자</div>
             </div>
             <div class="bx-set-apps">
@@ -70,7 +72,7 @@ function addNewBox(obj) {
     <section class="bx-ctrl" id="ctrl${ID}">
         <button class="tool bx-x" onclick=""></button>
         <button class="tool bx-m"></button>
-        <button class="tool bx-f" onclick="bxF(${ID})"></button>
+        <button class="tool bx-f" onclick="bxF(${ID},this.value)" value="${statu}"></button>
     </section>
     <div class="bx-bar" id="bar${ID}" data-group="${ID}" ></div>
     <label for="door${ID}" class="bx-door">
@@ -104,39 +106,61 @@ function addNewBox(obj) {
         textContent: ""
     }
     localStorage.setItem(`${ID}`,JSON.stringify(bxObj));   
-
-
-    bx.addEventListener('click', function() {
-        let boxes = document.querySelectorAll('.bx');
+    //박스 최상위, 셋 보기 컨트롤
+    let boxes = document.querySelectorAll('.bx');
+    boxes.forEach(function(box) {
+      box.addEventListener('click', function() {
         const currentZIndex = parseInt(getComputedStyle(this).zIndex);
         boxes.forEach(function(b) {
-            if (b !== bx) {
-                const zIndex = parseInt(getComputedStyle(b).zIndex);
-                const c = b.querySelector('.bx-set-door');
-                c.checked = false;
-                if (zIndex > currentZIndex) {
-                    b.style.zIndex = (zIndex - 1).toString();
-                }
-            }
+          if (b !== box) {
+            const zIndex = parseInt(getComputedStyle(b).zIndex);
+            b.querySelector('.bx-set-door').checked = false;
+            if (zIndex > currentZIndex) {b.style.zIndex = (zIndex - 1).toString();}
+          }
         });
-        bx.style.zIndex = (boxes.length).toString();
+        this.style.zIndex = (boxes.length).toString();
+
+        if (currentBoxResizeObserver) {currentBoxResizeObserver.disconnect();}
+        currentBoxResizeObserver = new ResizeObserver((entries) => {
+            entries.forEach((entry) => {
+                // const width = Math.floor(entry.contentRect.width);
+                let w = parseInt(entry.contentRect.width);
+                let h = parseInt(entry.contentRect.height);
+            });
+        });
+        currentBoxResizeObserver.observe(bx);
+      });
     });
+
 }
 // 박스 로드, 프린트
 function printBx(obj){
     const ID = obj.id;
     const bx = document.createElement('div');
-    const w = obj.width;
-    const h = obj.height;
     const z = obj.zindex;
     const n = obj.num;
-    const top = obj.top;
-    const left = obj.left;
-
+    let w = obj.width;
+    let h = obj.height;
+    let top = obj.top;
+    let left = obj.left;
+    const statu = obj.statu;
+    if(statu === "fullsize"){
+        top = 30;
+        left = 30;
+        w = '';
+        h = 'calc(100% - 30px)'; 
+        bx.setAttribute('style',`
+        position:absolute;
+        z-index:${z};
+        top:30px;left:30px; 
+        width:calc(100% - 60px); height:calc(100% - 30px)`)
+    } else {
+        bx.setAttribute('style',`position:absolute;z-index:${z};top:${top}px;left:${left}px; width:${w}px; height:${h}px`)
+    }
+    
     bx.id = `bx${ID}`;
     bx.classList.add('bx');
     bx.dataset.group = ID;
-    bx.setAttribute('style',`position:absolute;z-index:${z};top:${top}px;left:${left}px; width:${w}px; height:${h}px`)
 
     const localBX = localStorage.getItem(ID);
     let BX = JSON.parse(localBX);
@@ -157,7 +181,7 @@ function printBx(obj){
             <div class="bx-set-c">
                 <div class="title">색상</div>
             </div>
-            <div class="bx-set-ㄹ">
+            <div class="bx-set-font">
                 <div class="title">글자</div>
             </div>
             <div class="bx-set-apps">
@@ -175,9 +199,9 @@ function printBx(obj){
         </div>
     </section>
     <section class="bx-ctrl" id="ctrl${ID}">
-        <button class="tool bx-x" onclick=""></button>
-        <button class="tool bx-m"></button>
-        <button class="tool bx-f" onclick="bxF(${ID})"></button>
+        <button class="tool bx-x" id="bxX${ID}" onclick=""></button>
+        <button class="tool bx-m" id="bxM${ID}"></button>
+        <button class="tool bx-f" id="bxF${ID}" onclick="bxF(${ID},this.value)" value="${statu}"></button>
     </section>
     <div class="bx-bar" id="bar${ID}" data-group="${ID}" ></div>
     <label for="door${ID}" class="bx-door">
@@ -205,6 +229,7 @@ function printBx(obj){
 
     bs.appendChild(bx);// bs안에 bx프린트
     TextResize(ID);
+    // bxF(ID,statu);
 }
 function TextResize(ID) {
     let textarea = document.getElementById(`txt${ID}`);
@@ -218,8 +243,7 @@ function loadBox() {
     if (localBxArr) {
         bxArr = JSON.parse(localBxArr);
         bxArr.forEach(obj => printBx(obj));
-        console.log(bxArr);
+        // console.log(bxArr);
     }
 }
 loadBox()
-console.log(bxArr);

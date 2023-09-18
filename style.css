@@ -22,52 +22,53 @@
                 outline: none;
                 background: none;
                 &::-webkit-scrollbar{width: 0;}
+                font-family: Helvetica, 'Nanum Gothic',sans-serif ,serif;
             }
             ::-webkit-resizer {display: none;}
 /* ---- */
 /* 변수--------------------------------------------------------------- */
 :root{
-    --df-c:#000;
-    --df-bodr: 1px #000 solid;
-    --df-body-bgc: #f1f1f7;
-    --df-t-shdw:0px 2px 2px rgba(0, 0, 0, 0.27);
-    --tb-h:25px;
-    --tb-bgc:#1a0d7c10;
-    --tb-c:#fff;
-    
+--df-c:#000;
+--df-bodr: 1px #000 solid;
+--df-body-bgc: #f1f1f7;
+--df-t-shdw:0px 2px 2px rgba(0, 0, 0, 0.27);
+--tb-h:25px;
+--tb-bgc:#1a0d7c10;
+--tb-c:#fff;
 /* 사이드 나타나는 트렌지션 ------------------------------- */
-    --side-transition: transform .5s ease;
+--side-transition: transform .5s ease;
 /* 좌측 손잡이 ------------------------------- */
-    --lw-dr-size:100px;
-    --lw-dr-offset-x: calc(0px - var(--lw-dr-size));
+--lw-dr-size:100px;
+--lw-dr-offset-x: calc(0px - var(--lw-dr-size));
+--lw-dr-c:#dddddddf;
 /* 박스 ------------------------------- */
-    /* --bx-bgc:#fff; */
-    --bx-size:200px;
-    --bx-set-bgc:#cfcfcf92;
-    --bx-set-bodr: 1px soild rgba(217, 217, 217, 0.781);
-    --bx-set-width:40%;
-    --bx-set-c:#272727;
-    --bx-t-shdw:0px 3px 5px rgba(0, 0, 0, 0.146);;
-    
-    --bx-ctrl-width:45px;
-    --bx-hdr-h: 35px;
-    --bx-hdr-bgc:#f5eeee;
-    --bx-hdr-c:#5b5a5a;
-    
-    --bx-tool-size: 12px;
-    --bx-tool-bodr-r: 50px;
-    --bx-h: calc(var(--bx-size) + var(--bx-hdr-h));
-    --bx-bodr-r:12px;
-    --bx-bodr-c:rgba(217, 217, 217, 0.212);
-    --bx-bodr:1px solid var(--bx-bodr-c);
-    
-    --bx-box-shdw-1: 0 5px 10px 0 rgba(203, 203, 203, 0.283);
-    --bx-box-shdw-inset-1: 5px 3px 10px -2px rgba(240, 240, 240, 0.796) inset;
-    
-    --bx-apps-bgc:#fff;
+/* --bx-bgc:#fff; */
+--bx-size:200px;
+--bx-set-bgc:#cfcfcf92;
+--bx-set-bodr: 1px soild rgba(217, 217, 217, 0.781);
+--bx-set-width:40%;
+--bx-set-c:#272727;
+--bx-t-shdw:0px 3px 5px rgba(0, 0, 0, 0.146);;
+
+--bx-ctrl-width:45px;
+--bx-hdr-h: 35px;
+--bx-hdr-bgc:#f5eeee;
+--bx-hdr-c:#5b5a5a;
+
+--bx-tool-size: 12px;
+--bx-tool-bodr-r: 50px;
+--bx-h: calc(var(--bx-size) + var(--bx-hdr-h));
+--bx-bodr-r:12px;
+--bx-bodr-c:rgba(217, 217, 217, 0.212);
+--bx-bodr:1px solid var(--bx-bodr-c);
+
+--bx-box-shdw-1: 0 5px 10px 0 rgba(203, 203, 203, 0.283);
+--bx-box-shdw-inset-1: 5px 3px 10px -2px rgba(240, 240, 240, 0.796) inset;
+
+--bx-apps-bgc:#fff;
 /* 박스 ------------------------------- */
 
-    --f-h:85px
+--f-h:85px
 }
 @media (prefers-color-scheme: dark) {
     :root{
@@ -75,20 +76,20 @@
         --df-bodr: 1px #ffffff solid;
         --df-body-bgc: #121213;
         
-        
+/* 좌측 손잡이 ------------------------------- */
+        --lw-dr-c:#fff;
+/* 박스 ------------------------------- */
         --bx-bgc:#28272f;
         --bx-hdr-bgc:#3b383b;
         --bx-hdr-c:#a7a4a7;
-        
         --bx-set-bgc:#2a2a2ab1;
         --bx-set-bodr: 1px soild rgba(0, 0, 0, 0.781);
         --bx-set-c:#ffffff;
-        
         --bx-bodr-c:rgba(0, 0, 0, 0.523);
         /* --bx-box-shdw-1: 0 5px 10px 0 rgba(33, 32, 32, 0.283); */
         --bx-box-shdw-1: 0px 2px 2px rgba(0, 0, 0, 0.27);
-
         --bx-apps-bgc:#28272f;
+
     }
 }
 /* html, body */
@@ -110,7 +111,9 @@ body{
     background-position: center;
     background-size: cover;
     /* padding: 0 15px 15px 15px; */
+    font-family: Helvetica, 'Nanum Gothic',sans-serif ,serif;
     overflow: hidden;
+
 }
 /* 스크린 zindex----------------------------------------------------------- */
 .tb{position: relative;}
@@ -143,7 +146,7 @@ footer{position: relative;}
             align-items: center;
             border: 0; border-radius: 50%;
             background-color: #00000000;
-            color: #fff;}
+            color: var(--lw-dr-c);}
 .rw-back{position: absolute;z-index: 101;top: 0;right: 0;width: 100%;height: 100%;}
 .rw{position: absolute;z-index: 102;top: 0;right: 0;}
 /* --------------------------------------------------------------- */
