@@ -20,6 +20,9 @@ function newBox() {
     bxArr.push(nbxObj);
     addNewBox(nbxObj); // 새로운 앱 요소 생성 및 추가
     saveBxArr(); // appsArr 저장
+    const bxs = document.querySelectorAll(".bx");
+    bxs.forEach(function(bx){
+      bx.querySelector('.bx-set-door').checked = false;})
 }
 
 function saveBxArr() {localStorage.setItem('bxArr', JSON.stringify(bxArr));}
@@ -111,27 +114,50 @@ function addNewBox(obj) {
     boxes.forEach(function(box) {
       box.addEventListener('click', function() {
         const currentZIndex = parseInt(getComputedStyle(this).zIndex);
+        const ID = parseInt(this.dataset.group);
+        const targetBoxObj = bxArr.find(i => i.id === ID);
         boxes.forEach(function(b) {
-          if (b !== box) {
-            const zIndex = parseInt(getComputedStyle(b).zIndex);
+          if (b !== box) {//클릭되지 않은 박스들
+            bsClick();
             b.querySelector('.bx-set-door').checked = false;
-            if (zIndex > currentZIndex) {b.style.zIndex = (zIndex - 1).toString();}
-          }
-        });
+            const zIndex = parseInt(getComputedStyle(b).zIndex);
+              if (zIndex > currentZIndex){b.style.zIndex = (zIndex - 1).toString();}
+              
+              const ID = parseInt(b.dataset.group);
+              saveBxZindex(ID,b.style.zIndex);//재정렬된 zIndex 로컬에 저장
+            }
+          });
         this.style.zIndex = (boxes.length).toString();
-
-        if (currentBoxResizeObserver) {currentBoxResizeObserver.disconnect();}
-        currentBoxResizeObserver = new ResizeObserver((entries) => {
-            entries.forEach((entry) => {
-                // const width = Math.floor(entry.contentRect.width);
-                let w = parseInt(entry.contentRect.width);
-                let h = parseInt(entry.contentRect.height);
+    //박스 리사이징 감지 동작-------------------
+        const currentBxF = document.getElementById("bxF"+ID);
+        const t = parseInt(this.style.top);
+        const l = parseInt(this.style.left);
+        const w = parseInt(this.style.width); console.log(w);
+        const h = parseInt(this.style.height);
+        if(targetBoxObj.statu === "response"){
+          saveBxWidthHeight(ID,w,h,t,l);
+          currentBxF.value = 'response'; //버튼 value
+        } else if(targetBoxObj.statu === "fullsize"){
+          const fullW = parseInt(this.clientWidth);
+          const fullH = parseInt(this.clientHeight);
+          if (currentBoxResizeObserver) {currentBoxResizeObserver.disconnect();}
+          resize = new ResizeObserver((entries) => {
+            entries.forEach((b) => {
+              let newW = parseInt(b.target.clientWidth);
+              let newH = parseInt(b.target.clientHeight);
+              if(newW === fullW && newH === fullH){
+                targetBoxObj.statu = 'fullsize';
+              }else{
+                targetBoxObj.statu = 'response';
+              }
             });
+          });
+          resize.observe(box);
+        }
+  //---------------------------------------
+        saveBxZindex(ID,this.style.zIndex);//바뀐 zIndex 로컬에 저장
         });
-        currentBoxResizeObserver.observe(bx);
-      });
     });
-
 }
 // 박스 로드, 프린트
 function printBx(obj){

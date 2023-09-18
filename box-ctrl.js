@@ -1,10 +1,30 @@
 //박스 삭제
 function bxX(ID){
+  // 클릭된 박스의 z보다 작은 애들은 내비두고 보다 큰 애들은 -1해서 다시 저장하기
+  const currentZ = document.getElementById(`bx${ID}`).style.zIndex; console.log(currentZ);
+  
+  
+  let boxes = document.querySelectorAll('.bx');
+  boxes.forEach(function(b) {
+    const bID = b.dataset.group;
+    
+    boxes.forEach(function(bx) {
+      if(b != bx){
+        let bxz = bx.style.zIndex;
+        if(bxz > currentZ){
+          bxz = bxz - 1;
+          saveBxZindex(bID,bxz);
+        }
+      }
+    });
+  })
+
   localStorage.removeItem(ID);
   const bx = document.getElementById(`bx${ID}`);
   bs.removeChild(bx);
+  
   bxArr = bxArr.filter(i => i.id != ID);
-  saveBxArr()
+  saveBxArr();
 }
 
 //박스 바깥 클릭시 해제 => 셋 보기, 풀사이즈 
@@ -50,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const currentBxF = document.getElementById("bxF"+ID);
       const t = parseInt(this.style.top);
       const l = parseInt(this.style.left);
-      const w = parseInt(this.style.width); console.log(w);
+      const w = parseInt(this.style.width);
       const h = parseInt(this.style.height);
       if(targetBoxObj.statu === "response"){
         saveBxWidthHeight(ID,w,h,t,l);
