@@ -116,7 +116,7 @@ function addNewBox(obj) {
         const currentZIndex = parseInt(getComputedStyle(this).zIndex);
         const ID = parseInt(this.dataset.group);
         const targetBoxObj = bxArr.find(i => i.id === ID);
-        boxes.forEach(function(b) {
+        boxes.forEach(function(b) { console.log(boxes.length);
           if (b !== box) {//클릭되지 않은 박스들
             bsClick();
             b.querySelector('.bx-set-door').checked = false;
@@ -256,6 +256,7 @@ function printBx(obj){
     bs.appendChild(bx);// bs안에 bx프린트
     TextResize(ID);
     // bxF(ID,statu);
+    
 }
 function TextResize(ID) {
     let textarea = document.getElementById(`txt${ID}`);

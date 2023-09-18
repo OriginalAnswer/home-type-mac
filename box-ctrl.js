@@ -1,4 +1,17 @@
-//박스 삭제
+//박스 바깥 클릭시 해제 => 셋 보기, 풀사이즈 
+function bsClick(){
+  const bxs = event.target.querySelectorAll(".bx");
+  bxs.forEach(function(bx){
+    bx.querySelector('.bx-set-door').checked = false;
+
+    const ID = parseInt(bx.dataset.group);
+    bxF(ID,"fullsize");
+
+    const currentBxF = document.getElementById("bxF"+ID);
+    currentBxF.value = 'response';
+  })
+}
+//박스 삭제**********
 function bxX(ID){
   // 클릭된 박스의 z보다 작은 애들은 내비두고 보다 큰 애들은 -1해서 다시 저장하기
   const currentZ = document.getElementById(`bx${ID}`).style.zIndex; console.log(currentZ);
@@ -27,19 +40,6 @@ function bxX(ID){
   saveBxArr();
 }
 
-//박스 바깥 클릭시 해제 => 셋 보기, 풀사이즈 
-function bsClick(){
-    const bxs = event.target.querySelectorAll(".bx");
-    bxs.forEach(function(bx){
-      bx.querySelector('.bx-set-door').checked = false;
-
-      const ID = parseInt(bx.dataset.group);
-      bxF(ID,"fullsize");
-
-      const currentBxF = document.getElementById("bxF"+ID);
-      currentBxF.value = 'response';
-    })
-}
 
 //박스 활성화(클릭 시) 동작------------------------------------------
 //박스 zIndex 재정렬, 셋 보기 해제
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const currentZIndex = parseInt(getComputedStyle(this).zIndex);
       const ID = parseInt(this.dataset.group);
       const targetBoxObj = bxArr.find(i => i.id === ID);
-      boxes.forEach(function(b) {
+      boxes.forEach(function(b) {console.log(boxes.length);
         if (b !== box) {//클릭되지 않은 박스들
           bsClick();
           b.querySelector('.bx-set-door').checked = false;
