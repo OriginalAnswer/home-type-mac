@@ -70,9 +70,9 @@ function addNewBox(obj) {
         </div>
     </section>
     <section class="bx-ctrl" id="ctrl${ID}">
-        <button class="tool bx-x" onclick=""></button>
-        <button class="tool bx-m"></button>
-        <button class="tool bx-f" onclick="bxF(${ID},this.value)" value="${statu}"></button>
+        <button class="tool bx-x" id="bxX${ID}" onclick="bxX(${ID})"></button>
+        <button class="tool bx-m" id="bxM${ID}"></button>
+        <button class="tool bx-f" id="bxF${ID}" onclick="bxF(${ID},this.value)" value="${statu}"></button>
     </section>
     <div class="bx-bar" id="bar${ID}" data-group="${ID}" ></div>
     <label for="door${ID}" class="bx-door">
@@ -163,7 +163,7 @@ function printBx(obj){
     bx.dataset.group = ID;
 
     const localBX = localStorage.getItem(ID);
-    let BX = JSON.parse(localBX);
+    const BX = JSON.parse(localBX);
     const txt = BX.textContent;
     const linkArr = BX.linkContent;
     const taskArr = BX.taskContent;
@@ -199,7 +199,7 @@ function printBx(obj){
         </div>
     </section>
     <section class="bx-ctrl" id="ctrl${ID}">
-        <button class="tool bx-x" id="bxX${ID}" onclick=""></button>
+        <button class="tool bx-x" id="bxX${ID}" onclick="bxX(${ID})"></button>
         <button class="tool bx-m" id="bxM${ID}"></button>
         <button class="tool bx-f" id="bxF${ID}" onclick="bxF(${ID},this.value)" value="${statu}"></button>
     </section>
