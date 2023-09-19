@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
           b.querySelector('.bx-set-door').checked = false;
           const zIndex = parseInt(getComputedStyle(b).zIndex);
             if (zIndex > currentZIndex){b.style.zIndex = (zIndex - 1).toString();}
-            
             const ID = parseInt(b.dataset.group);
             saveBxZindex(ID,b.style.zIndex);//재정렬된 zIndex 로컬에 저장
           }
@@ -66,8 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
       this.style.zIndex = (boxes.length).toString();
   //박스 리사이징 감지 동작-------------------
       const currentBxF = document.getElementById("bxF"+ID);
-      const t = parseInt(this.style.top);
-      const l = parseInt(this.style.left);
+      const t = (this.style.top).toString();
+      const l = (this.style.left).toString();
       const w = parseInt(this.style.width);
       const h = parseInt(this.style.height);
       if(targetBoxObj.statu === "response"){
@@ -113,12 +112,11 @@ function saveBxWidthHeight(ID,w,h,t,l){
   saveBxArr();
 }
 
-//박스 사이징
+//박스 사이징// b
 function bxF(ID,v){
   const bx = document.getElementById("bx"+ID);
   const targetBoxObj = bxArr.find(box => box.id === ID);
-            // box.style.transition = 'all .5s ease-in-out';
-
+  bx.style.transition = 'all .5s ease-in-out';
   if(v === "response"){
     bx.style.top = '30px';
     bx.style.left = '30px';
@@ -126,16 +124,22 @@ function bxF(ID,v){
     bx.style.height = 'calc(100% - 30px)';
     targetBoxObj.statu = 'fullsize';
     event.target.value = 'fullsize';
+    // bxFTransition('on')
+    
   } else {
-    bx.style.top = `${targetBoxObj.top}px`;
-    bx.style.left = `${targetBoxObj.left}px`;
+    bx.style.top = targetBoxObj.top;
+    bx.style.left = targetBoxObj.left;
     bx.style.width = `${targetBoxObj.width}px`;
     bx.style.height = `${targetBoxObj.height}px`;
     targetBoxObj.statu = 'response';
     event.target.value = 'response';
+    // bxFTransition('off')
   }
   saveBxArr();
   // bx.style.transition = 'transform 0.2s';
+  setTimeout(() => {
+    bx.style.transition = '';
+  }, 500)
 };
 
 
@@ -186,6 +190,7 @@ function boxDragging(bxID,ID){
         yPercent = Math.min(maxYPercent, Math.max(0, yPercent));
         box.style.left = `${xPercent}%`;
         box.style.top = `${yPercent}%`;
+        console.log(box.style.top);
     }
   })
 }

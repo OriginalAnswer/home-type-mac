@@ -14,8 +14,8 @@ function newBox() {
         zindex: z,
         width: 300,
         height: 200,
-        top: Length*30+30,
-        left: Length*15+30,
+        top: Length*30+30+'px',
+        left: Length*15+30+'px',
     }; 
     bxArr.push(nbxObj);
     addNewBox(nbxObj); // 새로운 앱 요소 생성 및 추가
@@ -40,7 +40,7 @@ function addNewBox(obj) {
     bx.id = `bx${obj.id}`;
     bx.classList.add('bx');
     bx.dataset.group = obj.id;
-    bx.setAttribute('style',`position:absolute;z-index:${z};top:${top}px;left:${left}px; width:${w}px; height:${h}px`)
+    bx.setAttribute('style',`position:absolute;z-index:${z};top:${top};left:${left}; width:${w}px; height:${h}px`)
 
     bx.innerHTML = `
     <input type="checkbox" id="door${ID}" class="bx-set-door dpnone">
@@ -122,7 +122,6 @@ function addNewBox(obj) {
             b.querySelector('.bx-set-door').checked = false;
             const zIndex = parseInt(getComputedStyle(b).zIndex);
               if (zIndex > currentZIndex){b.style.zIndex = (zIndex - 1).toString();}
-              
               const ID = parseInt(b.dataset.group);
               saveBxZindex(ID,b.style.zIndex);//재정렬된 zIndex 로컬에 저장
             }
@@ -130,8 +129,8 @@ function addNewBox(obj) {
         this.style.zIndex = (boxes.length).toString();
     //박스 리사이징 감지 동작-------------------
         const currentBxF = document.getElementById("bxF"+ID);
-        const t = parseInt(this.style.top);
-        const l = parseInt(this.style.left);
+        const t = (this.style.top).toString();
+        const l = (this.style.left).toString();
         const w = parseInt(this.style.width);
         const h = parseInt(this.style.height);
         if(targetBoxObj.statu === "response"){
@@ -182,7 +181,7 @@ function printBx(obj){
         top:30px;left:30px; 
         width:calc(100% - 60px); height:calc(100% - 30px)`)
     } else {
-        bx.setAttribute('style',`position:absolute;z-index:${z};top:${top}px;left:${left}px; width:${w}px; height:${h}px`)
+        bx.setAttribute('style',`position:absolute;z-index:${z};top:${top};left:${left}; width:${w}px; height:${h}px`)
     }
     
     bx.id = `bx${ID}`;
