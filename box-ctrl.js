@@ -15,7 +15,6 @@ function bsClick(){
 function bxX(ID){
   // 클릭된 박스의 z보다 작은 애들은 내비두고 보다 큰 애들은 -1해서 다시 저장하기
   const currentZ = document.getElementById(`bx${ID}`).style.zIndex;
-  
   let boxes = document.querySelectorAll('.bx');
   boxes.forEach(function(b) {
     const bID = b.dataset.group;
