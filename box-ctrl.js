@@ -151,17 +151,26 @@ let maxXPercent, maxYPercent;
 
 function boxDragging(bxID,ID){
   const bxs = document.querySelectorAll(".bx");
-  bxs.forEach(function(bx){
-    bx.querySelector('.bx-set-door').checked = false;
+  const box = document.getElementById(bxID);
+  let currentZIndex = parseInt(box.style.zIndex);
+  bxs.forEach(function(b){
+    if (b !== box) {
+      const zIndex = parseInt(getComputedStyle(b).zIndex);
+      if (zIndex > currentZIndex){b.style.zIndex = (zIndex - 1).toString();}
+      const ID = parseInt(b.dataset.group);
+      saveBxZindex(ID,b.style.zIndex);
+      
+      b.querySelector('.bx-set-door').checked = false;
+    }
     const currentBxF = document.getElementById("bxF"+ID);
     currentBxF.value = 'response';
   })
-  const box = document.getElementById(bxID);
-  box.style.zIndex = (bxArr.length).toString();
+  box.style.zIndex = bxs.length;
+
+  
   const touch = event.type === 'touchstart' ? event.touches[0] : event;
   setTimeout(() => {
     document.body.style.cursor = 'grabbing';
-    
     offsetX = touch.clientX - box.getBoundingClientRect().left;
     offsetY = touch.clientY - box.getBoundingClientRect().top;
     const startXPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
