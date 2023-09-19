@@ -156,8 +156,8 @@ function boxDragging(bxID,ID){
     const currentBxF = document.getElementById("bxF"+ID);
     currentBxF.value = 'response';
   })
-  // console.log();
   const box = document.getElementById(bxID);
+  box.style.zIndex = (bxArr.length).toString();
   const touch = event.type === 'touchstart' ? event.touches[0] : event;
   setTimeout(() => {
     document.body.style.cursor = 'grabbing';
