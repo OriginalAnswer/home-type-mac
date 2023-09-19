@@ -1,14 +1,13 @@
 //박스 바깥 클릭시 해제 => 셋 보기, 풀사이즈 
 function bsClick(){
-  const bxs = event.target.querySelectorAll(".bx");
-  bxs.forEach(function(bx){
-    bx.querySelector('.bx-set-door').checked = false;
+  const boxes = event.target.querySelectorAll(".bx");
+  boxes.forEach(function(x){
+    x.querySelector('.bx-set-door').checked = false;
 
-    const ID = parseInt(bx.dataset.group);
+    const ID = parseInt(x.dataset.group);
     bxF(ID,"fullsize");
 
-    const currentBxF = document.getElementById("bxF"+ID);
-    currentBxF.value = 'response';
+    document.getElementById("bxF"+ID).value = 'response';
   })
 }
 //박스 삭제**********
@@ -52,7 +51,7 @@ function bxX(ID){// 클릭된 박스의 z보다 작은 애들은 내비두고 �
 
   localStorage.removeItem(ID);
   
-  bs.removeChild(thisBox);
+  bs.removeChild(thisBox); 
   
   bxArr = bxArr.filter(i => i.id != ID);
   saveBxArr();

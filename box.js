@@ -123,7 +123,7 @@ function addNewBox(obj) {
         let w = targetObj.width;
         let h = targetObj.height;
         
-        const thisZ = parseInt(this.style.zIndex);
+        const thisZ = parseInt(this.style.zIndex); 
         //노클릭 박스들 컨트롤
         boxes.forEach(function(x) {
         if (x !== box) {//클릭되지 않은 박스들
