@@ -12,18 +12,17 @@ function bsClick(){
   })
 }
 //박스 삭제**********
-function bxX(ID){
-  // 클릭된 박스의 z보다 작은 애들은 내비두고 보다 큰 애들은 -1해서 다시 저장하기
+function bxX(ID){// 클릭된 박스의 z보다 작은 애들은 내비두고 보다 큰 애들은 -1해서 다시 저장하기
   const currentZ = document.getElementById(`bx${ID}`).style.zIndex;
   let boxes = document.querySelectorAll('.bx');
   boxes.forEach(function(b) {
     const bID = b.dataset.group;
     boxes.forEach(function(bx) {
       if(b != bx){
-        let bxz = bx.style.zIndex;
+        let bxz = bx.style.zIndex;console.log(bxz);
         if(bxz > currentZ){
           bxz = bxz - 1;
-          saveBxZindex(bID,bxz);
+          // saveBxZindex(bID,bxz);
         }
       }
     });
