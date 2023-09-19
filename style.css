@@ -31,6 +31,7 @@
 --df-c:#000;
 --df-bodr: 1px #000 solid;
 --df-body-bgc: #f1f1f7;
+--df-body-bg-url: url(./Light.png);
 --df-t-shdw:0px 2px 2px rgba(0, 0, 0, 0.27);
 --tb-h:25px;
 --tb-bgc:#1a0d7c10;
@@ -75,7 +76,7 @@
         --df-c:#ffffff;
         --df-bodr: 1px #ffffff solid;
         --df-body-bgc: #121213;
-        
+        --df-body-bg-url: url(./Dark.png);
 /* 좌측 손잡이 ------------------------------- */
         --lw-dr-c:#fff;
 /* 박스 ------------------------------- */
@@ -107,7 +108,7 @@ body{
     height: 100dvh;
     position: relative;
     background-color: var(--df-body-bgc);
-    background-image: url(./macOS-Graphic-Dark.png);
+    background-image: var(--df-body-bg-url);
     background-position: center;
     background-size: cover;
     /* padding: 0 15px 15px 15px; */

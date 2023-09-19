@@ -14,13 +14,11 @@ function bsClick(){
 //박스 삭제**********
 function bxX(ID){
   // 클릭된 박스의 z보다 작은 애들은 내비두고 보다 큰 애들은 -1해서 다시 저장하기
-  const currentZ = document.getElementById(`bx${ID}`).style.zIndex; console.log(currentZ);
-  
+  const currentZ = document.getElementById(`bx${ID}`).style.zIndex;
   
   let boxes = document.querySelectorAll('.bx');
   boxes.forEach(function(b) {
     const bID = b.dataset.group;
-    
     boxes.forEach(function(bx) {
       if(b != bx){
         let bxz = bx.style.zIndex;
@@ -74,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const h = parseInt(this.style.height);
       if(targetBoxObj.statu === "response"){
         saveBxWidthHeight(ID,w,h,t,l);
+        console.log(ID,w,h,t,l);
         currentBxF.value = 'response'; //버튼 value
       } else if(targetBoxObj.statu === "fullsize"){
         const fullW = parseInt(this.clientWidth);
@@ -106,6 +105,7 @@ function saveBxZindex(ID,z){
 
 function saveBxWidthHeight(ID,w,h,t,l){
   const targetBoxObj = bxArr.find(i => i.id === ID);
+  console.log(ID,w,h,t,l)
   targetBoxObj.top = t;
   targetBoxObj.left = l;
   targetBoxObj.width = w;
@@ -141,95 +141,51 @@ function bxF(ID,v){
 
 
 
+let isDragging = false;
+let offsetX, offsetY;
+let maxXPercent, maxYPercent;
 
-
-
-
-
-
-
-
-// let isDragging = false;
-// let draggingbx = null;
-// let touchStartTime = 0;
-// let offsetX, offsetY;
-// let maxXPercent, maxYPercent;
-
-// function dragBx(){
-// }
-
-// function handleStart(e) {
-//     if (isDragging) return;
+function boxDragging(bxID,ID){
+  const bxs = document.querySelectorAll(".bx");
+  bxs.forEach(function(bx){
+    bx.querySelector('.bx-set-door').checked = false;
+    const currentBxF = document.getElementById("bxF"+ID);
+    currentBxF.value = 'response';
+  })
+  // console.log();
+  const box = document.getElementById(bxID);
+  const touch = event.type === 'touchstart' ? event.touches[0] : event;
+  setTimeout(() => {
+    document.body.style.cursor = 'grabbing';
     
-//     touchStartTime = new Date().getTime();
-//     const touch = e.type === 'touchstart' ? e.touches[0] : e;
+    offsetX = touch.clientX - box.getBoundingClientRect().left;
+    offsetY = touch.clientY - box.getBoundingClientRect().top;
+    const startXPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
+    const startYPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
+    maxXPercent = 100 - (box.offsetWidth / window.innerWidth * 100);
+    maxYPercent = 100 - (box.offsetHeight / window.innerHeight * 100);
+    // touch.clientX는 뷰포트 기준 터치 지점X
+    console.log(offsetX,offsetY,startXPercent,startYPercent,maxXPercent,maxYPercent);
+    document.addEventListener('mouseup', () => {endDrag();});
+    document.addEventListener('touchend', () => {endDrag();});
+    function endDrag() {
+        document.body.style.cursor = 'auto';
+        box.style.webkitUserSelect = '';
+        box.style.transform = 'scale(1)';
 
-//     setTimeout(() => {
-//         const currentTime = new Date().getTime();
-//         if (isDragging || (currentTime - touchStartTime < 200)) {
-//             return;
-//         }
-
-//         const ID = e.target.dataset.group;
-//         draggingbx = document.getElementById(`bx${ID}`);
-        
-//         offsetX = touch.clientX - draggingbx.getBoundingClientRect().left;
-//         offsetY = touch.clientY - draggingbx.getBoundingClientRect().top;
-        
-//         const zi = draggingbx.style.zIndex;
-//         // console.log(zi);
-//         document.body.style.cursor = 'grabbing';
-//         draggingbx.style.webkitUserSelect = 'none';
-//         draggingbx.style.transform = 'scale(1.02)';
-    
-//         const startXPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
-//         const startYPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
-
-//         draggingbx.style.left = `${startXPercent}%`;
-//         draggingbx.style.top = `${startYPercent}%`;
-    
-//         maxXPercent = 100 - (draggingbx.offsetWidth / window.innerWidth * 100);
-//         maxYPercent = 100 - (draggingbx.offsetHeight / window.innerHeight * 100);
-    
-//         document.addEventListener('mousemove', moveHandler);
-//         document.addEventListener('touchmove', moveHandler);
-    
-//         document.addEventListener('mouseup', () => {
-//             endDrag();
-//         });
-//         document.addEventListener('touchend', () => {
-//             endDrag();
-//         });
-
-//         function moveHandler(e) {
-//             const touch = e.type === 'touchmove' ? e.touches[0] : e;
-//             let xPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
-//             let yPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
-    
-//             xPercent = Math.min(maxXPercent, Math.max(0, xPercent));
-//             yPercent = Math.min(maxYPercent, Math.max(0, yPercent));
-    
-//             draggingbx.style.left = `${xPercent}%`;
-//             draggingbx.style.top = `${yPercent}%`;
-//         }
-    
-//         function endDrag() {
-//             if (draggingbx) {
-//             document.body.style.cursor = 'auto';
-//             draggingbx.style.webkitUserSelect = '';
-//             draggingbx.style.transform = 'scale(1)';
-    
-//             document.removeEventListener('mousemove', moveHandler);
-//             document.removeEventListener('touchmove', moveHandler);
-//             draggingbx = null;
-//             isDragging = false;
-//             }
-//         }
-    
-//         isDragging = true;
-//     }, 200);
-// }
-
-//박스 좌측 상단 버튼
-    //최대화
-
+        document.removeEventListener('mousemove', moveHandler);
+        document.removeEventListener('touchmove', moveHandler);
+    }
+    document.addEventListener('mousemove', moveHandler);
+    document.addEventListener('touchmove', moveHandler);
+    function moveHandler(e) {
+        const touch = e.type === 'touchmove' ? e.touches[0] : e;
+        let xPercent = (touch.clientX - offsetX) / window.innerWidth * 100;
+        let yPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
+        xPercent = Math.min(maxXPercent, Math.max(0, xPercent));
+        yPercent = Math.min(maxYPercent, Math.max(0, yPercent));
+        box.style.left = `${xPercent}%`;
+        box.style.top = `${yPercent}%`;
+    }
+  })
+}

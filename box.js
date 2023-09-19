@@ -77,12 +77,12 @@ function addNewBox(obj) {
         <button class="tool bx-m" id="bxM${ID}"></button>
         <button class="tool bx-f" id="bxF${ID}" onclick="bxF(${ID},this.value)" value="${statu}"></button>
     </section>
-    <div class="bx-bar" id="bar${ID}" data-group="${ID}" ></div>
+    <div class="bx-bar" id="bar${ID}" data-group="${ID}" onmousedown="boxDragging('bx${ID}',${ID})"></div>
     <label for="door${ID}" class="bx-door">
         <i class="fa-solid fa-ellipsis-vertical"></i>
     </label>
     <section class="bx-view" id="view${ID}">
-        <div class="bx-hdr" data-group="${ID}" id="hdr${ID}" onclick="dragBx()">
+        <div class="bx-hdr" data-group="${ID}" id="hdr${ID}">
             <div class="c">
                 <label for="title${ID}" class="bx-title"></label>
                 <input type="text" class="bx-title-input dpnone" id="title${ID}">
@@ -132,10 +132,11 @@ function addNewBox(obj) {
         const currentBxF = document.getElementById("bxF"+ID);
         const t = parseInt(this.style.top);
         const l = parseInt(this.style.left);
-        const w = parseInt(this.style.width); console.log(w);
+        const w = parseInt(this.style.width);
         const h = parseInt(this.style.height);
         if(targetBoxObj.statu === "response"){
           saveBxWidthHeight(ID,w,h,t,l);
+          console.log(ID,w,h,t,l);
           currentBxF.value = 'response'; //버튼 value
         } else if(targetBoxObj.statu === "fullsize"){
           const fullW = parseInt(this.clientWidth);
@@ -229,12 +230,12 @@ function printBx(obj){
         <button class="tool bx-m" id="bxM${ID}"></button>
         <button class="tool bx-f" id="bxF${ID}" onclick="bxF(${ID},this.value)" value="${statu}"></button>
     </section>
-    <div class="bx-bar" id="bar${ID}" data-group="${ID}" ></div>
+    <div class="bx-bar" id="bar${ID}" data-group="${ID}" onmousedown="boxDragging('bx${ID}',${ID})"></div>
     <label for="door${ID}" class="bx-door">
         <i class="fa-solid fa-ellipsis-vertical"></i>
     </label>
     <section class="bx-view" id="view${ID}">
-        <div class="bx-hdr" data-group="${ID}" id="hdr${ID}" onclick="dragBx()">
+        <div class="bx-hdr" data-group="${ID}" id="hdr${ID}">
             <div class="c">
                 <label for="title${ID}" class="bx-title"></label>
                 <input type="text" class="bx-title-input dpnone" id="title${ID}">
