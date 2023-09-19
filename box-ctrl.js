@@ -52,10 +52,11 @@ function bxX(ID){// 클릭된 박스의 z보다 작은 애들은 내비두고 �
 
   localStorage.removeItem(ID);
   
+  bs.removeChild(thisBox);
+  
   bxArr = bxArr.filter(i => i.id != ID);
   saveBxArr();
   // console.log(bxArr);
-  bs.removeChild(thisBox);
 }
 
 //**************중요**************
