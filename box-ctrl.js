@@ -11,31 +11,6 @@ function bsClick(){
     currentBxF.value = 'response';
   })
 }
-//박스 삭제**********
-function bxX(ID){// 클릭된 박스의 z보다 작은 애들은 내비두고 보다 큰 애들은 -1해서 다시 저장하기
-  const currentZ = document.getElementById(`bx${ID}`).style.zIndex;
-  let boxes = document.querySelectorAll('.bx');
-  boxes.forEach(function(b) {
-    const bID = b.dataset.group;
-    boxes.forEach(function(bx) {
-      if(b != bx){
-        let bxz = bx.style.zIndex;console.log(bxz);
-        if(bxz > currentZ){
-          bxz = bxz - 1;
-        }
-        // saveBxZindex(bID,bxz);
-      }
-    });
-  })
-
-  localStorage.removeItem(ID);
-  const bx = document.getElementById(`bx${ID}`);
-  bs.removeChild(bx);
-  
-  bxArr = bxArr.filter(i => i.id != ID);
-  saveBxArr();
-}
-
 
 //박스 활성화(클릭 시) 동작------------------------------------------
 //박스 zIndex 재정렬, 셋 보기 해제
@@ -50,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const currentZIndex = parseInt(getComputedStyle(this).zIndex);
       const ID = parseInt(this.dataset.group);
       const targetBoxObj = bxArr.find(i => i.id === ID);
-      boxes.forEach(function(b) {console.log(boxes.length);
+      boxes.forEach(function(b) {
         if (b !== box) {//클릭되지 않은 박스들
           bsClick();
           b.querySelector('.bx-set-door').checked = false;
@@ -69,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const h = parseInt(this.style.height);
       if(targetBoxObj.statu === "response"){
         saveBxWidthHeight(ID,w,h,t,l);
-        console.log(ID,w,h,t,l);
+        // console.log(ID,w,h,t,l);
         currentBxF.value = 'response'; //버튼 value
       } else if(targetBoxObj.statu === "fullsize"){
         const fullW = parseInt(this.clientWidth);
@@ -93,10 +68,41 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 });
+
+//박스 삭제**********
+function bxX(ID){// 클릭된 박스의 z보다 작은 애들은 내비두고 보다 큰 애들은 -1해서 다시 저장하기
+  console.log(ID);
+  const selectedBox = document.getElementById(`bx${ID}`)
+  const selectedBoxZindex = selectedBox.style.zIndex;
+  let boxes = document.querySelectorAll('.bx');
+  boxes.forEach(function(box) {
+    if(box != selectedBox){
+      let z = box.style.zIndex;
+      if(z > selectedBoxZindex){
+        z = z - 1;
+        saveBxZindex(box.dataset.gtoup, z);
+      }
+    }
+  })
+
+  localStorage.removeItem(ID);
+  const bx = document.getElementById(`bx${ID}`);
+  bs.removeChild(bx);
+  
+  bxArr = bxArr.filter(i => i.id != ID);
+  saveBxArr();
+  // console.log(bxArr);
+}
+
 //bxArr 불러와서 해당 id의 w,h,z 수정
 function saveBxZindex(ID,z){
-  const targetBoxObj = bxArr.find(i => i.id === ID);
-  targetBoxObj.zindex = z;
+  // console.log(ID, z);
+  // console.log(bxArr);
+  const Z = z.toString();
+  const obj = bxArr.find(i => i.id === ID);
+  // console.log(Z);
+  // console.log(obj, obj.zindex);
+  // obj.zindex = z; 
   saveBxArr();
 }
 
@@ -176,7 +182,7 @@ function boxDragging(bxID,ID){
     maxXPercent = 100 - (box.offsetWidth / window.innerWidth * 100);
     maxYPercent = 100 - (box.offsetHeight / window.innerHeight * 100);
     // touch.clientX는 뷰포트 기준 터치 지점X
-    console.log(offsetX,offsetY,startXPercent,startYPercent,maxXPercent,maxYPercent);
+    // console.log(offsetX,offsetY,startXPercent,startYPercent,maxXPercent,maxYPercent);
     document.addEventListener('mouseup', () => {endDrag();});
     document.addEventListener('touchend', () => {endDrag();});
     function endDrag() {
@@ -197,7 +203,6 @@ function boxDragging(bxID,ID){
         yPercent = Math.min(maxYPercent, Math.max(0, yPercent));
         box.style.left = `${xPercent}%`;
         box.style.top = `${yPercent}%`;
-        console.log(box.style.top);
     }
   })
 }
