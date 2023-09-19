@@ -8,14 +8,13 @@ function newBox() {
     const z = Length+1;
     const nbxObj = {
         id: Date.now(),
-        num: Length,
-        name: 'title',
-        statu: 'response',
         zindex: z,
         width: 300,
         height: 200,
         top: Length*30+30+'px',
         left: Length*15+30+'px',
+        statu: 'response',
+        name: 'title',
     }; 
     bxArr.push(nbxObj);
     addNewBox(nbxObj); // 새로운 앱 요소 생성 및 추가
@@ -32,7 +31,6 @@ function addNewBox(obj) {
     const w = obj.width;
     const h = obj.height;
     const z = obj.zindex;
-    const n = obj.num;
     const top = obj.top;
     const left = obj.left;
     const statu = obj.statu;
@@ -111,60 +109,88 @@ function addNewBox(obj) {
     localStorage.setItem(`${ID}`,JSON.stringify(bxObj));   
     //박스 최상위, 셋 보기 컨트롤
     let boxes = document.querySelectorAll('.bx');
-    boxes.forEach(function(box) {
-      box.addEventListener('click', function() {
-        const currentZIndex = parseInt(getComputedStyle(this).zIndex);
+  boxes.forEach(function(box) {
+    //**모든 박스 오브젝트
+    const boxID = parseInt(box.dataset.group);
+    const boxObj = bxArr.find(i => i.id === boxID);
+    // 박스 클릭(하나의 박스)
+    box.addEventListener('click', function() {
         const ID = parseInt(this.dataset.group);
-        const targetBoxObj = bxArr.find(i => i.id === ID);
-        boxes.forEach(function(b) { console.log(boxes.length);
-          if (b !== box) {//클릭되지 않은 박스들
-            bsClick();
-            b.querySelector('.bx-set-door').checked = false;
-            const zIndex = parseInt(getComputedStyle(b).zIndex);
-              if (zIndex > currentZIndex){b.style.zIndex = (zIndex - 1).toString();}
-              const ID = parseInt(b.dataset.group);
-              saveBxZindex(ID,b.style.zIndex);//재정렬된 zIndex 로컬에 저장
+        const targetObj = bxArr.find(i => i.id === ID);//**클릭된 박스 오브젝트
+        let z = targetObj.zindex;
+        let t = targetObj.top;
+        let l = targetObj.left;
+        let w = targetObj.width;
+        let h = targetObj.height;
+        
+        const thisZ = parseInt(this.style.zIndex);
+        //노클릭 박스들 컨트롤
+        boxes.forEach(function(x) {
+        if (x !== box) {//클릭되지 않은 박스들
+            const OBJ = bxArr.find(i => i.id === parseInt(x.dataset.group));//**클릭된 박스 오브젝트
+            let z = OBJ.zindex;
+            let t = OBJ.top;
+            let l = OBJ.left;
+            let w = OBJ.width;
+            let h = OBJ.height;
+            
+            const xZ = parseInt(getComputedStyle(x).zIndex);
+            
+            if (xZ > thisZ){
+            x.style.zIndex = parseInt(xZ - 1);
+            z = x.style.zIndex;
             }
-          });
-        this.style.zIndex = (boxes.length).toString();
-    //박스 리사이징 감지 동작-------------------
-        const currentBxF = document.getElementById("bxF"+ID);
-        const t = (this.style.top).toString();
-        const l = (this.style.left).toString();
-        const w = parseInt(this.style.width);
-        const h = parseInt(this.style.height);
-        if(targetBoxObj.statu === "response"){
-          saveBxWidthHeight(ID,w,h,t,l);
-          console.log(ID,w,h,t,l);
-          currentBxF.value = 'response'; //버튼 value
-        } else if(targetBoxObj.statu === "fullsize"){
-          const fullW = parseInt(this.clientWidth);
-          const fullH = parseInt(this.clientHeight);
-          if (currentBoxResizeObserver) {currentBoxResizeObserver.disconnect();}
-          resize = new ResizeObserver((entries) => {
-            entries.forEach((b) => {
-              let newW = parseInt(b.target.clientWidth);
-              let newH = parseInt(b.target.clientHeight);
-              if(newW === fullW && newH === fullH){
-                targetBoxObj.statu = 'fullsize';
-              }else{
-                targetBoxObj.statu = 'response';
-              }
-            });
-          });
-          resize.observe(box);
+            
+            x.querySelector('.bx-set-door').checked = false;
+            saveBoxZTLWH(OBJ,z,t,l,w,h);
+            bsClick(); //셋 해제
         }
-  //---------------------------------------
-        saveBxZindex(ID,this.style.zIndex);//바뀐 zIndex 로컬에 저장
         });
+        //클릭 박스 최상위 만들기
+        this.style.zIndex = parseInt(boxes.length);
+    //박스 리사이징 감지 동작-------------------
+        const targetBtnF = document.getElementById("bxF"+ID);
+        z = parseInt(this.style.zIndex);
+        t = (this.style.top).toString();
+        l = (this.style.left).toString();
+        w = parseInt(this.style.width);
+        h = parseInt(this.style.height);
+        if(targetObj.statu === "response"){
+        saveBoxZTLWH(targetObj,z,t,l,w,h);
+        targetBtnF.value = 'response';
+        } else
+    //최대화 상태에서 리사이즈 감지 후, statu 반환
+        if(targetObj.statu === "fullsize"){
+        
+        const fullW = parseInt(this.clientWidth);
+        const fullH = parseInt(this.clientHeight);
+
+        if (currentBoxResizeObserver) {currentBoxResizeObserver.disconnect();}
+        resize = new ResizeObserver((entries) => {
+            entries.forEach((b) => {
+            let w = parseInt(b.target.clientWidth);
+            let h = parseInt(b.target.clientHeight);
+            if(w === fullW && h === fullH){
+                targetObj.statu = 'fullsize';
+            }else{
+                targetObj.statu = 'response';
+            }
+            });
+        });
+
+        resize.observe(box);
+
+        }
+//---------------------------------------
+        saveBoxZTLWH(targetObj,z,t,l,w,h);
     });
+  });
 }
 // 박스 로드, 프린트
 function printBx(obj){
     const ID = obj.id;
     const bx = document.createElement('div');
     const z = obj.zindex;
-    const n = obj.num;
     let w = obj.width;
     let h = obj.height;
     let top = obj.top;
