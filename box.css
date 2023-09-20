@@ -130,7 +130,9 @@
             display: block;
             height: calc(100% - var(--bx-hdr-h));
             background-color: var(--bx-apps-bgc);
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            &::-webkit-scrollbar{width: 0;}
             .bx-txt,.app-link,.app-task{
                 width: 100%;
                 display: flex;
