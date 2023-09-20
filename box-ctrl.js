@@ -1,3 +1,5 @@
+let boxesNow = document.querySelectorAll('.bx');
+
 //박스 바깥 클릭시 해제 => 셋 보기, 풀사이즈 
 function bsClick(){
   const boxes = event.target.querySelectorAll(".bx");
@@ -36,7 +38,7 @@ function bxX(ID){// 클릭된 박스의 z보다 작은 애들은 내비두고 �
       const xZ = parseInt(getComputedStyle(x).zIndex);
       if(xZ > thisZ){
         x.style.zIndex = parseInt(xZ - 1);
-        z = x.style.zIndex;
+        z = parseInt(x.style.zIndex);
       }
 
       x.querySelector('.bx-set-door').checked = false;
@@ -65,9 +67,11 @@ function bxX(ID){// 클릭된 박스의 z보다 작은 애들은 내비두고 �
 //나머지 박스 재정렬
 //나머지 박스(==전체 박스) 셋 보기 해제
 //나머지 박스 풀사이즈 해제
+
 document.addEventListener('DOMContentLoaded', function() {
-  let boxes = document.querySelectorAll('.bx');
-  boxes.forEach(function(box) {
+  boxesNow = document.querySelectorAll('.bx');
+  // let boxes = document.querySelectorAll('.bx');
+  boxesNow.forEach(function(box) {
     //**모든 박스 오브젝트
     const boxID = parseInt(box.dataset.group);
     const boxObj = bxArr.find(i => i.id === boxID);
@@ -83,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
               
               const thisZ = parseInt(this.style.zIndex);
               //노클릭 박스들 컨트롤
-              boxes.forEach(function(x) {
+              boxesNow.forEach(function(x) {
                 if (x !== box) {//클릭되지 않은 박스들
                   const OBJ = bxArr.find(i => i.id === parseInt(x.dataset.group));//**클릭된 박스 오브젝트
                   let z = OBJ.zindex;
@@ -96,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   
                   if (xZ > thisZ){
                     x.style.zIndex = parseInt(xZ - 1);
-                    z = x.style.zIndex;
+                    z = parseInt(x.style.zIndex);
                   }
                   
                   x.querySelector('.bx-set-door').checked = false;
@@ -105,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
               });
               //클릭 박스 최상위 만들기
-              this.style.zIndex = parseInt(boxes.length);
+              this.style.zIndex = parseInt(boxesNow.length);
           //박스 리사이징 감지 동작-------------------
               const targetBtnF = document.getElementById("bxF"+ID);
               z = parseInt(this.style.zIndex);
@@ -218,7 +222,7 @@ function boxDragging(bxID,ID){
 
       if (xZ > boxZ){
         x.style.zIndex = parseInt(xZ - 1);
-        z = x.style.zIndex;
+        z = parseInt(x.style.zIndex);
       }
       
       x.querySelector('.bx-set-door').checked = false;
@@ -229,7 +233,8 @@ function boxDragging(bxID,ID){
     targetBtnF.value = 'response';
   })
   //클릭 박스 최상위 만들기
-  box.style.zIndex = parseInt(boxes.length);
+  box.style.zIndex = parseInt(boxes.length+1);
+  box.style.transform = 'scale(1.01)';
 
   
   const touch = event.type === 'touchstart' ? event.touches[0] : event;
@@ -261,7 +266,7 @@ function boxDragging(bxID,ID){
         let yPercent = (touch.clientY - offsetY) / window.innerHeight * 100;
         xPercent = Math.min(maxXPercent, Math.max(0, xPercent));
         yPercent = Math.min(maxYPercent, Math.max(0, yPercent));
-        box.style.left = `${xPercent}%`;
+        box.style.left = `${xPercent}%`; 
         box.style.top = `${yPercent}%`;
     }
   })

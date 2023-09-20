@@ -138,7 +138,7 @@ function addNewBox(obj) {
             
             if (xZ > thisZ){
             x.style.zIndex = parseInt(xZ - 1);
-            z = x.style.zIndex;
+            z = parseInt(x.style.zIndex);
             }
             
             x.querySelector('.bx-set-door').checked = false;
