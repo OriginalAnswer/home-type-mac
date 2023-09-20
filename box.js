@@ -91,7 +91,7 @@ function addNewBox(obj) {
             <div class="app-link dpnone" id="link${ID}"></div>
             <div class="app-task dpnone" id="task${ID}"></div>
             <div class="bx-txt">
-                <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})"></textarea>
+                <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})" spellcheck="false"></textarea>
             </div>
             <div class="tags dpnone" id="tags${ID}"></div>
         </label>
@@ -271,7 +271,7 @@ function printBx(obj){
             <div class="app-link dpnone" id="link${ID}"></div>
             <div class="app-task dpnone" id="task${ID}"></div>
             <div class="bx-txt">
-                <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})">${txt}</textarea>
+                <textarea class="app-txt" id="txt${ID}" oninput="apptext(this.value, ${ID})" spellcheck="false">${txt}</textarea>
             </div>
             <div class="tags dpnone" id="tags${ID}"></div>
         </label>
