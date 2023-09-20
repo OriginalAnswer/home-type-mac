@@ -104,7 +104,7 @@ html{
 }
 body{
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     position: relative;
     background-color: var(--df-body-bgc);
     background-image: var(--df-body-bg-url);
