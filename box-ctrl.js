@@ -268,6 +268,13 @@ function boxDragging(bxID,ID){
         yPercent = Math.min(maxYPercent, Math.max(0, yPercent));
         box.style.left = `${xPercent}%`; 
         box.style.top = `${yPercent}%`;
-    }
+        const OBJ = bxArr.find(i => i.id === parseInt(box.dataset.group));
+        let z = OBJ.zindex;
+        let t = box.style.top;
+        let l = box.style.to;
+        let w = OBJ.width;
+        let h = OBJ.height;
+        saveBoxZTLWH(OBJ,z,t,l,w,h);
+      }
   })
 }
