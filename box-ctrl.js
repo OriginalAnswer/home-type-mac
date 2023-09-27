@@ -14,6 +14,8 @@ function bsClick(){
 }
 //박스 삭제**********
 function bxX(ID){// 클릭된 박스의 z보다 작은 애들은 내비두고 보다 큰 애들은 -1해서 다시 저장하기
+  localStorage.removeItem(ID);
+
   const targetObj = bxArr.find(i => i.id === ID);//**클릭된 박스 오브젝트
   let z = targetObj.zindex;
   let t = targetObj.top;
@@ -48,13 +50,10 @@ function bxX(ID){// 클릭된 박스의 z보다 작은 애들은 내비두고 �
   })
   //클릭 박스 최상위 만들기
   thisBox.style.zIndex = parseInt(boxes.length);
-  saveBoxZTLWH(targetObj,z,t,l,w,h);
-
-
-  localStorage.removeItem(ID);
-  
+  console.log(bxArr);
+  console.log(bxArr);
   bs.removeChild(thisBox); 
-  
+  saveBoxZTLWH(targetObj,z,t,l,w,h);  
   bxArr = bxArr.filter(i => i.id != ID);
   saveBxArr();
   // console.log(bxArr);
@@ -68,86 +67,182 @@ function bxX(ID){// 클릭된 박스의 z보다 작은 애들은 내비두고 �
 //나머지 박스(==전체 박스) 셋 보기 해제
 //나머지 박스 풀사이즈 해제
 
-document.addEventListener('DOMContentLoaded', function() {
-  boxesNow = document.querySelectorAll('.bx');
-  // let boxes = document.querySelectorAll('.bx');
-  boxesNow.forEach(function(box) {
-    //**모든 박스 오브젝트
-    const boxID = parseInt(box.dataset.group);
-    const boxObj = bxArr.find(i => i.id === boxID);
-    // 박스 클릭(하나의 박스)
-            box.addEventListener('click', function() {
-              const ID = parseInt(this.dataset.group);
-              const targetObj = bxArr.find(i => i.id === ID);//**클릭된 박스 오브젝트
-              let z = targetObj.zindex;
-              let t = targetObj.top;
-              let l = targetObj.left;
-              let w = targetObj.width;
-              let h = targetObj.height;
-              
-              const thisZ = parseInt(this.style.zIndex);
-              //노클릭 박스들 컨트롤
-              boxesNow.forEach(function(x) {
-                if (x !== box) {//클릭되지 않은 박스들
-                  const OBJ = bxArr.find(i => i.id === parseInt(x.dataset.group));//**클릭된 박스 오브젝트
-                  let z = OBJ.zindex;
-                  let t = OBJ.top;
-                  let l = OBJ.left;
-                  let w = OBJ.width;
-                  let h = OBJ.height;
-                  
-                  const xZ = parseInt(getComputedStyle(x).zIndex);
-                  
-                  if (xZ > thisZ){
-                    x.style.zIndex = parseInt(xZ - 1);
-                    z = parseInt(x.style.zIndex);
+// document.addEventListener('DOMContentLoaded', function() {
+//   boxesNow = document.querySelectorAll('.bx');
+//   boxesNow.forEach(function(box) {//**모든 박스 오브젝트
+//     box.addEventListener('click', function() {
+//         const thisZ = parseInt(this.style.zIndex);
+//         boxesNow.forEach(function(x) {//다른박스들
+//           if (x !== box) {//클릭되지 않은 박스들
+//             const OBJ = bxArr.find(i => i.id === parseInt(x.dataset.group));//**클릭된 박스 오브젝트
+//             let z = OBJ.zindex;
+//             let t = OBJ.top;
+//             let l = OBJ.left;
+//             let w = OBJ.width;
+//             let h = OBJ.height;
+            
+//             const xZ = parseInt(getComputedStyle(x).zIndex);
+//             if (xZ > thisZ){
+//               x.style.zIndex = parseInt(xZ - 1);
+//               z = parseInt(x.style.zIndex);
+//             }
+//             x.querySelector('.bx-set-door').checked = false;
+//             saveBoxZTLWH(OBJ,z,t,l,w,h);
+//             bsClick(); //셋 해제
+//           }
+//         });
+
+//         this.style.zIndex = parseInt(boxesNow.length);//박스 최상위
+//         //박스 리사이징 감지 동작-------------------
+
+//         const TOBJ = bxArr.find(i => i.id === parseInt(this.dataset.group));//**클릭된 박스 오브젝트
+//         let z = TOBJ.zindex;
+//         let t = TOBJ.top;
+//         let l = TOBJ.left;
+//         let w = TOBJ.width;
+//         let h = TOBJ.height;
+//         const targetBtnF = document.getElementById("bxF"+ this.dataset.group);
+//         if(TOBJ.statu === "response"){
+//           z = parseInt(this.style.zIndex);
+//           t = (this.style.top).toString();
+//           l = (this.style.left).toString();
+//           w = parseInt(this.style.width);
+//           h = parseInt(this.style.height);
+//           targetBtnF.value = 'response';
+//           // saveBoxZTLWH(TOBJ,z,t,l,w,h);
+//         } else
+//             if(TOBJ.statu === "fullsize"){
+//               const fullW = parseInt(bs.clientWidth - 62);
+//               const fullH = parseInt(bs.clientHeight - 32);
+//               if (currentBoxResizeObserver) {currentBoxResizeObserver.disconnect();}
+//               resize = new ResizeObserver((entries) => {
+//                 entries.forEach((b) => {
+//                   let ww = parseInt(b.target.clientWidth);
+//                   let hh = parseInt(b.target.clientHeight);
+//                   console.log("F"+fullW,"F"+fullH,ww,hh);
+//                   if(ww === fullW && hh === fullH){
+//                     z = TOBJ.zindex;
+//                     t = TOBJ.top;
+//                     l = TOBJ.left;
+//                     w = TOBJ.width;
+//                     h = TOBJ.height;
+//                     targetBtnF.value = 'fullsize';
+//                     TOBJ.statu = 'fullsize';
+//                     // saveBoxZTLWH(TOBJ,z,t,l,w,h);
+//                   }else{
+//                     // z = parseInt(this.style.zIndex);
+//                     // t = (this.style.top).toString();
+//                     // l = (this.style.left).toString();
+//                     // w = parseInt(this.style.width);
+//                     // h = parseInt(this.style.height);
+//                     targetBtnF.value = 'response';
+//                     TOBJ.statu = 'response';
+//                     // saveBoxZTLWH(TOBJ,z,t,l,w,h);
+//                   }
+//                 });
+//               });
+//               resize.observe(box);
+//             }
+//         //---------------------------------------
+//       saveBoxZTLWH(TOBJ,z,t,l,w,h);
+//     });
+//   });
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+// ++
+function bxclick(){
+boxesNow = document.querySelectorAll('.bx');
+  boxesNow.forEach(function(box) {//**모든 박스 오브젝트
+    box.addEventListener('click', function() {
+        const thisZ = parseInt(this.style.zIndex);
+        boxesNow.forEach(function(x) {//다른박스들
+          if (x !== box) {//클릭되지 않은 박스들
+            const OBJ = bxArr.find(i => i.id === parseInt(x.dataset.group));//**클릭된 박스 오브젝트
+            let z = OBJ.zindex;
+            let t = OBJ.top;
+            let l = OBJ.left;
+            let w = OBJ.width;
+            let h = OBJ.height;
+            
+            const xZ = parseInt(getComputedStyle(x).zIndex);
+            if (xZ > thisZ){
+              x.style.zIndex = parseInt(xZ - 1);
+              z = parseInt(x.style.zIndex);
+            }
+            x.querySelector('.bx-set-door').checked = false;
+            saveBoxZTLWH(OBJ,z,t,l,w,h);
+            bsClick(); //셋 해제
+          }
+        });
+
+        this.style.zIndex = parseInt(boxesNow.length);//박스 최상위
+        //박스 리사이징 감지 동작-------------------
+
+        const TOBJ = bxArr.find(i => i.id === parseInt(this.dataset.group));//**클릭된 박스 오브젝트
+        let z = TOBJ.zindex;
+        let t = TOBJ.top;
+        let l = TOBJ.left;
+        let w = TOBJ.width;
+        let h = TOBJ.height;
+        const targetBtnF = document.getElementById("bxF"+ this.dataset.group);
+        if(TOBJ.statu === "response"){
+          z = parseInt(this.style.zIndex);
+          t = (this.style.top).toString();
+          l = (this.style.left).toString();
+          w = parseInt(this.style.width);
+          h = parseInt(this.style.height);
+          targetBtnF.value = 'response';
+          // saveBoxZTLWH(TOBJ,z,t,l,w,h);
+        } else
+            if(TOBJ.statu === "fullsize"){
+              const fullW = parseInt(bs.clientWidth - 62);
+              const fullH = parseInt(bs.clientHeight - 32);
+              if (currentBoxResizeObserver) {currentBoxResizeObserver.disconnect();}
+              resize = new ResizeObserver((entries) => {
+                entries.forEach((b) => {
+                  let ww = parseInt(b.target.clientWidth);
+                  let hh = parseInt(b.target.clientHeight);
+                  console.log("F"+fullW,"F"+fullH,ww,hh);
+                  if(ww === fullW && hh === fullH){
+                    z = TOBJ.zindex;
+                    t = TOBJ.top;
+                    l = TOBJ.left;
+                    w = TOBJ.width;
+                    h = TOBJ.height;
+                    targetBtnF.value = 'fullsize';
+                    TOBJ.statu = 'fullsize';
+                    // saveBoxZTLWH(TOBJ,z,t,l,w,h);
+                  }else{
+                    // z = parseInt(this.style.zIndex);
+                    // t = (this.style.top).toString();
+                    // l = (this.style.left).toString();
+                    // w = parseInt(this.style.width);
+                    // h = parseInt(this.style.height);
+                    targetBtnF.value = 'response';
+                    TOBJ.statu = 'response';
+                    // saveBoxZTLWH(TOBJ,z,t,l,w,h);
                   }
-                  
-                  x.querySelector('.bx-set-door').checked = false;
-                  saveBoxZTLWH(OBJ,z,t,l,w,h);
-                  bsClick(); //셋 해제
-                }
-              });
-              //클릭 박스 최상위 만들기
-              this.style.zIndex = parseInt(boxesNow.length);
-          //박스 리사이징 감지 동작-------------------
-              const targetBtnF = document.getElementById("bxF"+ID);
-              z = parseInt(this.style.zIndex);
-              t = (this.style.top).toString();
-              l = (this.style.left).toString();
-              w = parseInt(this.style.width);
-              h = parseInt(this.style.height);
-              if(targetObj.statu === "response"){
-                saveBoxZTLWH(targetObj,z,t,l,w,h);
-                targetBtnF.value = 'response';
-              } else
-          //최대화 상태에서 리사이즈 감지 후, statu 반환
-              if(targetObj.statu === "fullsize"){
-                
-                const fullW = parseInt(this.clientWidth);
-                const fullH = parseInt(this.clientHeight);
-
-                if (currentBoxResizeObserver) {currentBoxResizeObserver.disconnect();}
-                resize = new ResizeObserver((entries) => {
-                  entries.forEach((b) => {
-                    let w = parseInt(b.target.clientWidth);
-                    let h = parseInt(b.target.clientHeight);
-                    if(w === fullW && h === fullH){
-                      targetObj.statu = 'fullsize';
-                    }else{
-                      targetObj.statu = 'response';
-                    }
-                  });
                 });
-
-                resize.observe(box);
-
-              }
+              });
+              resize.observe(box);
+            }
         //---------------------------------------
-              saveBoxZTLWH(targetObj,z,t,l,w,h);
-            });
+      saveBoxZTLWH(TOBJ,z,t,l,w,h);
+    });
   });
-});
+
+}
 //**************중요**************
 
 function saveBoxZTLWH(OBJ,z,t,l,w,h){
@@ -173,7 +268,7 @@ function bxF(ID,v){
     bx.style.height = 'calc(100% - 30px)';
     targetBoxObj.statu = 'fullsize';
     event.target.value = 'fullsize';
-    // bxFTransition('on')
+    console.log(bxArr);
     
   } else {
     bx.style.top = targetBoxObj.top;
@@ -182,10 +277,8 @@ function bxF(ID,v){
     bx.style.height = `${targetBoxObj.height}px`;
     targetBoxObj.statu = 'response';
     event.target.value = 'response';
-    // bxFTransition('off')
   }
   saveBxArr();
-  // bx.style.transition = 'transform 0.2s';
   setTimeout(() => {
     bx.style.transition = '';
   }, 500)
@@ -198,6 +291,7 @@ let offsetX, offsetY;
 let maxXPercent, maxYPercent;
 
 function boxDragging(bxID,ID){
+  console.log(bxArr);
   let boxes = document.querySelectorAll('.bx');
   const box = document.getElementById(bxID);
   const boxObj = bxArr.find(i => i.id === ID);//**클릭된 박스 오브젝트
@@ -271,7 +365,7 @@ function boxDragging(bxID,ID){
         const OBJ = bxArr.find(i => i.id === parseInt(box.dataset.group));
         let z = OBJ.zindex;
         let t = box.style.top;
-        let l = box.style.to;
+        let l = box.style.left;
         let w = OBJ.width;
         let h = OBJ.height;
         saveBoxZTLWH(OBJ,z,t,l,w,h);
