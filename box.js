@@ -39,7 +39,7 @@ function addNewBox(obj) {
     bx.classList.add('bx');
     bx.dataset.group = obj.id;
     bx.setAttribute('style',`position:absolute;z-index:${z};top:${top};left:${left}; width:${w}px; height:${h}px`)
-
+    bx.setAttribute('onclick','bxclick()');
     bx.innerHTML = `
     <input type="checkbox" id="door${ID}" class="bx-set-door dpnone">
     <section class="bx-set" id="set${ID}">
