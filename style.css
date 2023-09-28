@@ -182,8 +182,14 @@ footer{position: relative;}
         color: var(--tb-c);
         text-shadow: var(--df-t-shdw);
         backdrop-filter: blur(10px);
-        >.l, >.c, >.r{
+        >.l, >.r{
             width: 100%;
+        }
+        >.c{
+            width: auto;
+            /* margin: 0 auto; */
+        }
+        >.l, >.c, >.r{
             height: 100%;
             display: flex;
             flex-direction: row;
