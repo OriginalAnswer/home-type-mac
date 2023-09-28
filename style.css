@@ -183,7 +183,7 @@ footer{position: relative;}
         text-shadow: var(--df-t-shdw);
         backdrop-filter: blur(10px);
         >.l, >.r{
-            width: 100%;
+            width: 100%; 
         }
         >.c{
             width: auto;
