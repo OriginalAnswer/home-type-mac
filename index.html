@@ -16,30 +16,51 @@
     </div>
     <div class="c">
         <div class="btn-new-bx" onclick="newBox()">
-            <i class="fa-solid fa-plus add-bx-icon"></i>
+            <!-- <i>+</i> -->
+            <span>+</span>
+            <!-- <i class="fa-solid fa-plus add-bx-icon">+</i> -->
         </div>
     </div>
     <div class="r">
-        <label for="">widget</label> 
+        <label for="ww-door">widget</label> 
         <label for="rw-door">set</label>
     </div>
 </div>
 <!-- 좌우 히든 윈도우 ---------------------- -->
 <input type="checkbox" id="lw-door" class="dpnone">
 <input type="checkbox" id="rw-door" class="dpnone">
-<!-- <input type="checkbox" id="ww-door" class="dpnone"> -->
-<label class="lw-back" for="lw-door"></label>
-<div class="lw">
-    <div class="l">
-        <div class="stacks"> </div>
-    </div>
-    <label class="btn lw-door" for="lw-door"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></label>
-</div>
+<input type="checkbox" id="ww-door" class="dpnone">
 
-<label class="rw" for="rw-door"></label>
+<label class="lw-back" for="lw-door"></label>
 <label class="rw-back" for="rw-door"></label>
-<!-- <label class="ww" for="ww-door"></label>
-<label class="ww-back" for="ww-door"></label> -->
+<label class="ww-back" for="ww-door"></label>
+<label class="lw" for="lw-door">
+    <div class="l">
+        <div class="stacks"> 
+            <div class="stack"></div>
+            <div class="stack"></div>
+            <div class="stack"></div>
+            <div class="stack"></div>
+            <div class="stack"></div>
+        </div>
+    </div>
+    <!-- <i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i> -->
+</label>
+<label class="btn lw-handle" for="lw-door">❁</label>
+<label class="rw" for="rw-door"></label>
+<label class="ww" for="ww-door">
+    <div class="contanier">
+        <form action="https://www.google.com/search" method="GET" target="blank" class="searchbar search-google">
+            <label for="google-toggle" class="search-icon">
+                <i class="fa-brands fa-google search-site-icon"></i>
+            </label>
+            <input type="text" id="google-input" name="q" placeholder="Google 검색">
+            <button class="search-icon search-submit google-submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+    </div>
+</label>
 <!-- 메인 앱 화면 ---------------------- -->
 <main id="main">
     <div class="ws"></div>
