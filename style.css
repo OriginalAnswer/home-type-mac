@@ -2,7 +2,7 @@
 @import url(./set-screen.css);
 @font-face {
     font-family: 'jalnan';
-    src: url(/font/Jalnan2/Jalnan2TTF.ttf);
+    src: url(./font/Jalnan2/Jalnan2TTF.ttf);
 }
 @font-face {
     font-family: 'Pretendard-Regular';
