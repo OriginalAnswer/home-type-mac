@@ -18,6 +18,8 @@
                 margin: 0;
                 padding: 0;
                 text-decoration: none;
+                /* font-family: 'Pretendard-Regular','jalnan', Helvetica, 'Nanum Gothic',sans-serif ,serif; */
+                font-family: 'jalnan', Helvetica, 'Nanum Gothic',sans-serif ,serif;
             }  
             button{
                 background-color: #00000000;
@@ -32,7 +34,8 @@
                 outline: none;
                 background: none;
                 &::-webkit-scrollbar{width: 0;}
-                font-family: 'Pretendard-Regular','jalnan', Helvetica, 'Nanum Gothic',sans-serif ,serif;
+                /* font-family: 'Pretendard-Regular','jalnan', Helvetica, 'Nanum Gothic',sans-serif ,serif; */
+                /* font-family: 'jalnan', Helvetica, 'Nanum Gothic',sans-serif ,serif; */
                 /* font-family: Helvetica, 'Nanum Gothic',sans-serif ,serif; */
             }
             ::-webkit-resizer {display: none;}
