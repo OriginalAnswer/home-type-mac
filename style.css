@@ -18,8 +18,8 @@
                 margin: 0;
                 padding: 0;
                 text-decoration: none;
-                /* font-family: 'Pretendard-Regular','jalnan', Helvetica, 'Nanum Gothic',sans-serif ,serif; */
-                font-family: 'jalnan', Helvetica, 'Nanum Gothic',sans-serif ,serif;
+                font-family: 'Pretendard-Regular','jalnan', Helvetica, 'Nanum Gothic',sans-serif ,serif;
+                /* font-family: 'jalnan', Helvetica, 'Nanum Gothic',sans-serif ,serif; */
             }  
             button{
                 background-color: #00000000;
