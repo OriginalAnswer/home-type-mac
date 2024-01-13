@@ -1,5 +1,15 @@
 @import url(./box.css);
 @import url(./set-screen.css);
+@font-face {
+    font-family: 'jalnan';
+    src: url(/font/Jalnan2/Jalnan2TTF.ttf);
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
 /* 디폴트 */
             * {
                 box-sizing: border-box; 
@@ -22,7 +32,8 @@
                 outline: none;
                 background: none;
                 &::-webkit-scrollbar{width: 0;}
-                font-family: Helvetica, 'Nanum Gothic',sans-serif ,serif;
+                font-family: 'Pretendard-Regular','jalnan', Helvetica, 'Nanum Gothic',sans-serif ,serif;
+                /* font-family: Helvetica, 'Nanum Gothic',sans-serif ,serif; */
             }
             ::-webkit-resizer {display: none;}
 /* ---- */
