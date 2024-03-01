@@ -1,0 +1,17 @@
+Top > Main > background
+
+Top
+클릭시 나타나는 것 > back > 버튼에어리아(Top)
+    Top 안에 들어갈 것들
+        - 캘린더
+        - 메모추가 버튼
+        - 제너럴 세팅
+        - 유저
+Main
+스톡>스톡back>노트섹션+광고섹션
+
+
+css
+
+default
+top

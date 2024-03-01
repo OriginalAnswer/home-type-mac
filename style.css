@@ -1,5 +1,5 @@
 @import url(./box.css);
-@import url(./set-screen.css);
+/* @import url(./set-screen.css); */
 @font-face {
     font-family: 'jalnan';
     src: url(./font/Jalnan2/Jalnan2TTF.ttf);
@@ -125,9 +125,7 @@ body{
     background-position: center;
     background-size: cover;
     /* padding: 0 15px 15px 15px; */
-    font-family: Helvetica, 'Nanum Gothic',sans-serif ,serif;
     overflow: hidden;
-
 }
 /* 스크린 zindex----------------------------------------------------------- */
 .tb{position: relative;}
