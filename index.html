@@ -12,7 +12,7 @@
 <!-- 상단 툴바 ---------------------- -->
 <div class="tb">
     <div class="l">
-        <div><div class="top-time"></div></div>
+        <label for=""><div class="top-time"></div></label>
     </div>
     <div class="c">
         <div class="btn-new-bx" onclick="newBox()">
@@ -24,16 +24,24 @@
     <div class="r">
         <label for="ww-door">widget</label> 
         <label for="rw-door">set</label>
+        <label 
+            for="top_user_cb" 
+            class="top_user-btn-box">
+            <i class="fa-solid fa-user"></i>
+        </label>
     </div>
 </div>
 <!-- 좌우 히든 윈도우 ---------------------- -->
 <input type="checkbox" id="lw-door" class="dpnone">
 <input type="checkbox" id="rw-door" class="dpnone">
 <input type="checkbox" id="ww-door" class="dpnone">
+<input type="checkbox" id="top_user_cb" class="dpnone">
 
 <label class="lw-back" for="lw-door"></label>
 <label class="rw-back" for="rw-door"></label>
 <label class="ww-back" for="ww-door"></label>
+<label class="top_user-back" for="top_user_cb"></label>
+
 <label class="lw" for="lw-door">
     <div class="l">
         <div class="stacks"> 

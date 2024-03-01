@@ -180,6 +180,10 @@ rotateZ90deg) -> rotateZ(180deg) *lw-door
 #lw-door:checked ~ .lw-handle{transform: rotateZ(180deg) translateX(-400px);}
 
 /* --------------------------------------------------------------- */
+.top_user-btn-box i{
+    font-size: .88em;
+}
+/* --------------------------------------------------------------- */
 .ww{
     /* display: flex; */
     justify-content: center;
